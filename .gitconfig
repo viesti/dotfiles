@@ -1,0 +1,22 @@
+[user]
+	name = Kimmo Koskinen
+	email = kimmo.koskinen@solita.fi
+[alias]
+	st = status
+	co = checkout
+	wdiff = diff --color-words
+	wshow = show --color-words
+	cp = cherry-pick
+	spp = !git stash && git pull && git stash pop
+[core]
+	editor = emacsclient
+[push]
+	default = simple
+[credential]
+	helper = osxkeychain
+[branch]
+	autosetuprebase = always
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
