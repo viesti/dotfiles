@@ -273,6 +273,15 @@
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
+
+;; Windmove, chage bindings
+(dolist (key '("S-<up>" "S-<down>" "S-<left>" "S-<right>"))
+  (global-unset-key (kbd key)))
+(global-set-key (kbd "s-<left>") 'windmove-left)
+(global-set-key (kbd "s-<right>") 'windmove-right)
+(global-set-key (kbd "s-<down>") 'windmove-down)
+(global-set-key (kbd "s-<up>") 'windmove-up)
+
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
 (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
