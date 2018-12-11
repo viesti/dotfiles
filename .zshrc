@@ -52,7 +52,6 @@ alias top='top -F -R -o cpu'
 export BREAK_CHARS="\"#'(),;\`\\|"
 alias sbcl="rlwrap -b \$BREAK_CHARS sbcl"
 
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 export GOPATH=~/go
 
 # ** PATH **
@@ -63,7 +62,6 @@ export PATH=$JAVA_HOME/bin:$PATH
 export PATH=$PATH:$GOPATH/bin
 # ** PATH **
 
-export MANPATH=$MANPATH:/opt/local/share/man
 export SVN_EDITOR=emacs
 export CLOJURESCRIPT_HOME=/Users/viesti/programming/clojure/clojurescript
 
