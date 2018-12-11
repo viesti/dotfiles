@@ -81,3 +81,7 @@ export ANDROID_HOME=/usr/local/opt/android-sdk
 export PATH=$PATH:/Users/kimmoko/.local/bin
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+source ~/programming/git-subrepo/.rc
+
+export LEIN_USE_BOOTCLASSPATH=y
