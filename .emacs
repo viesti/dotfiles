@@ -262,8 +262,6 @@
 (global-set-key (kbd "<f5>") 'ag-project)
 (global-set-key (kbd "<f6>") 'ag-regexp-project-at-point)
 (menu-bar-mode 1)
-(require 'sr-speedbar)
-(global-set-key (kbd "s-b") 'sr-speedbar-toggle)
 (global-set-key (kbd "<C-s-up>")     'buf-move-up)
 (global-set-key (kbd "<C-s-down>")   'buf-move-down)
 (global-set-key (kbd "<C-s-left>")   'buf-move-left)
