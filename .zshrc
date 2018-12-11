@@ -34,6 +34,7 @@ bindkey '^f' edit-command-line
 alias ls='ls -v'
 alias l='ls -hGlrt'
 alias les='less'
+alias gut='git'
 alias la='ls -la'
 alias pstree='pstree -g 2 -w'
 alias ncal='ncal -w'
