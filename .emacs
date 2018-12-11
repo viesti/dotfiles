@@ -360,3 +360,6 @@
 (flx-ido-mode 1)
 (setq ido-enable-flex-matching t)
 (setq ido-use-faces nil)
+
+(add-hook 'after-save-hook
+  'executable-make-buffer-file-executable-if-script-p)
