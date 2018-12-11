@@ -3,13 +3,13 @@
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-'(add-to-list 'package-archives
+(add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 (add-to-list 'load-path "~/.emacs.d/monroe/")
 (when (file-exists-p "~/.emacs.d/refresh-packages-on-start")
   (package-refresh-contents))
-(mapc 'package-install '(ac-ispell ace-jump-mode ag anyins async auto-complete buffer-move cedit cider clj-refactor cljdoc clojure-cheatsheet clojure-mode clojure-mode-extra-font-locking clojure-project-mode clojurescript-mode color-theme color-theme-github color-theme-solarized command-t company concurrent ctable cycbuf dash deferred direx ecb edn elisp-slime-nav ensime epc epl epoch-view es-lib es-windows etags-select etags-table eval-sexp-fu exec-path-from-shell expand-region find-file-in-project find-file-in-repository flx flx-ido flymake-easy flymake-jshint free-keys fringe-helper ggtags git-blame git-commit git-gutter git-gutter-fringe gitconfig gtags guile-scheme helm helm-cmd-t helm-core highlight highlight-parentheses highlight-symbol hy-mode hydra icicles idle-highlight-mode ido-completing-read+ ido-ubiquitous iedit isearch+ javap-mode jedi jedi-core jedi-direx js-comint js2-closure js2-mode js2-refactor js3-mode json-mode json-reformat json-snatcher jsx-mode jump-char latest-clojure-libraries less-css-mode levenshtein lua-mode magit magit-find-file magit-popup markdown-mode midje-mode midje-test-mode multiple-cursors newlisp-mode nginx-mode nlinum nose nose-mode occur-context-resize paredit peg php-mode pkg-info popup popwin project-explorer project-mode python-environment queue rainbow-delimiters request s sbt-mode scala-mode2 slamhound smartparens smex spinner sr-speedbar starter-kit starter-kit-bindings starter-kit-eshell starter-kit-lisp typed-clojure-mode web-beautify wgrep wgrep-ag with-editor writegood-mode yaml-mode yasnippet))
+(mapc 'package-install '(ac-ispell ace-jump-mode ag anyins async auto-complete buffer-move cedit cider cljdoc clojure-cheatsheet clojure-mode clojure-mode-extra-font-locking clojurescript-mode color-theme color-theme-github color-theme-solarized command-t company concurrent ctable cycbuf dash deferred direx ecb edn elisp-slime-nav ensime epc epl epoch-view es-lib es-windows etags-select etags-table eval-sexp-fu exec-path-from-shell expand-region find-file-in-project find-file-in-repository flx flx-ido flymake-easy flymake-jshint free-keys fringe-helper ggtags mo-git-blame git-commit git-gutter git-gutter-fringe gitconfig gtags guile-scheme helm helm-cmd-t helm-core highlight highlight-parentheses highlight-symbol hy-mode hydra icicles idle-highlight-mode ido-completing-read+ ido-ubiquitous iedit isearch+ javap-mode jedi jedi-core jedi-direx js-comint js2-closure js2-mode js2-refactor js3-mode json-mode json-reformat json-snatcher jsx-mode jump-char latest-clojure-libraries less-css-mode levenshtein lua-mode magit magit-find-file magit-popup markdown-mode midje-mode multiple-cursors newlisp-mode nginx-mode nlinum nose nose-mode occur-context-resize paredit peg php-mode pkg-info popup popwin project-explorer python-environment queue rainbow-delimiters request s sbt-mode scala-mode slamhound smartparens smex spinner sr-speedbar starter-kit starter-kit-bindings starter-kit-eshell starter-kit-lisp typed-clojure-mode web-beautify wgrep wgrep-ag with-editor writegood-mode yaml-mode yasnippet flymake-json))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -29,11 +29,7 @@
  '(cider-popup-on-error t)
  '(cider-popup-stacktraces t)
  '(cider-repl-history-file "~/.emacs.d/nrepl-history.log")
- '(cider-show-error-buffer t)
- '(cljr-cljc-clojure-test-declaration
-   "#?(:clj [clojure.test :refer :all]
-:cljs [cljs.test :as t :include-macros true])")
- '(cljr-clojure-test-declaration "[clojure.test :refer :all]")
+ '(cider-show-error-buffer t t)
  '(column-number-mode t)
  '(css-indent-offset 2)
  '(custom-safe-themes
@@ -55,6 +51,7 @@
  '(js2-basic-offset 2)
  '(large-file-warning-threshold nil)
  '(mac-font-panel-mode nil)
+ '(magit-diff-refine-hunk (quote all))
  '(magit-use-overlays t)
  '(mark-diary-entries-in-calendar t)
  '(mouse-drag-copy-region t)
@@ -64,10 +61,15 @@
  '(ns-right-alternate-modifier (quote meta))
  '(ns-right-command-modifier (quote left))
  '(number-of-diary-entries 3)
+ '(package-selected-packages
+   (quote
+    (sesman clj-refactor calfw-ical docker-tramp dockerfile-mode ess dash-at-point graphviz-dot-mode groovy-mode which-key terraform-mode yasnippet wgrep starter-kit spinner smex scala-mode sbt-mode s queue python-environment popwin popup pkg-info peg paredit nose multiple-cursors magit-popup json-snatcher json-reformat js2-mode jedi-core jedi ido-ubiquitous ido-completing-read+ idle-highlight-mode hydra helm-core helm git-gutter fringe-helper flymake-easy flx find-file-in-project es-windows es-lib epl epc elisp-slime-nav edn direx deferred ctable concurrent company color-theme auto-complete yaml-mode writegood-mode wgrep-ag web-beautify typed-clojure-mode starter-kit-lisp starter-kit-eshell starter-kit-bindings sr-speedbar smartparens slamhound request rainbow-delimiters project-explorer php-mode occur-context-resize nose-mode nlinum nginx-mode newlisp-mode mo-git-blame midje-mode markdown-mode magit-find-file lua-mode levenshtein less-css-mode latest-clojure-libraries jump-char jsx-mode json-mode js3-mode js2-refactor js2-closure js-comint jedi-direx javap-mode isearch+ iedit icicles hy-mode highlight-symbol highlight-parentheses highlight helm-cmd-t guile-scheme gtags gitconfig git-gutter-fringe ggtags free-keys flymake-json flymake-jshint flx-ido find-file-in-repository expand-region exec-path-from-shell eval-sexp-fu etags-table etags-select epoch-view ensime ecb cycbuf command-t color-theme-solarized color-theme-github clojurescript-mode clojure-mode-extra-font-locking clojure-cheatsheet cljdoc cedit buffer-move anyins ace-jump-mode ac-ispell)))
  '(python-shell-interpreter "python")
  '(safe-local-variable-values
    (quote
-    ((cider-cljs-lein-repl . "(do (dev) (go) (cljs-repl))")
+    ((cider-refresh-after-fn . "integrant.repl/resume")
+     (cider-refresh-before-fn . "integrant.repl/suspend")
+     (cider-cljs-lein-repl . "(do (dev) (go) (cljs-repl))")
      (cider-refresh-after-fn . "reloaded.repl/resume")
      (cider-refresh-before-fn . "reloaded.repl/suspend")
      (whitespace-line-column . 80)
@@ -140,14 +142,11 @@
 (defun clojure-config ()
   "Clojure configuration"
   (require 'clojure-mode)
-  (require 'clj-refactor)
   ;(require 'monroe)
   ;(add-hook 'clojure-mode-hook 'clojure-enable-monroe)
   (setq cider-font-lock-dynamically '(macro core function var))
   (add-hook 'clojure-mode-hook (lambda ()
-                                 ;(clj-refactor-mode 1)
-                                 (yas-minor-mode 1)
-                                 (cljr-add-keybindings-with-prefix "C-c C-m")))
+                                 (yas-minor-mode 1)))
   (add-hook 'clojure-mode-hook 'linum-mode)
   (add-hook 'cider-mode-hook #'company-mode)
   (add-hook 'cider-mode-hook #'eldoc-mode)
@@ -236,8 +235,11 @@
 (setq ring-bell-function #'ignore)
 
 (require 'highlight-symbol)
-(global-set-key [(shift f3)] 'highlight-symbol-next)
-(global-set-key [(meta f3)] 'highlight-symbol-prev)
+;;(global-unset-key [(kbd "kp-home")])
+
+;(global-set-key [end] (quote highlight-symbol-next))
+(global-set-key [end] 'highlight-symbol-next)
+(global-set-key [home] 'highlight-symbol-prev)
 
 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
 (add-hook 'newlisp-mode-hook 'paredit-mode)
@@ -306,7 +308,7 @@
 (require 'highlight-parentheses)
 
 (setq ispell-program-name "aspell"
-      ispell-dictionary "finnish"
+      ispell-dictionary "english"
       ispell-local-dictionary-alist '(("finnish"
                                        "[%.0-9A-Za-z\247\300-\326\330-\366\370-\377-]"
                                        "[^.%0-9A-Za-z\247\300-\326\330-\366\370-\377-]"
