@@ -4,10 +4,11 @@
 [alias]
 	st = status
 	co = checkout
-	wdiff = diff --color-words
+	df = diff --color-words
 	wshow = show --color-words
 	cp = cherry-pick
 	spp = !git stash && git pull && git stash pop
+    rbc = rebase --continue
 [core]
 	editor = emacsclient
 [push]
