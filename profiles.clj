@@ -24,7 +24,7 @@
                         "-XX:+FlightRecorder"]}
  :yagni {:plugins [[venantius/yagni "0.1.2"]]}
  :line-count {:plugins [[lein-count "1.0.9"]]}
- :cider {:plugins [[cider/cider-nrepl "0.18.0"]
+ :cider {:plugins [[cider/cider-nrepl "0.19.0"]
                    [refactor-nrepl "2.4.0"]]}
  :user [:shared :global-opts :moar-opts :injected-tools]
  :wait-debugger {:jvm-opts ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"
