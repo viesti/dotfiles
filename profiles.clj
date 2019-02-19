@@ -1,8 +1,7 @@
 {:non-pedantic {:pedantic? :ranges}
  :vizdeps {:plugins [[walmartlabs/vizdeps "0.1.6"]]}
  :shared {:plugins [[com.jakemccrary/lein-test-refresh "0.16.0"]
-                    [lein-pprint "1.1.2"]
-                    [walmartlabs/vizdeps "0.1.6"]]
+                    [lein-pprint "1.1.2"]]
           :figwheel {:open-file-command "figwheel-file-opener"}
           :test-refresh {:growl true}
           #_#_:source-paths ["/users/kimmoko/.clojure/user"]}
