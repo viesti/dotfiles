@@ -30,6 +30,9 @@
  '(cider-popup-stacktraces t)
  '(cider-repl-history-file "~/.emacs.d/nrepl-history.log")
  '(cider-show-error-buffer t t)
+ '(cljr-cljc-clojure-test-declaration
+   "#?(:clj [clojure.test :refer :all]
+:cljs [cljs.test :as t :include-macros true])")
  '(column-number-mode t)
  '(css-indent-offset 2)
  '(custom-safe-themes
