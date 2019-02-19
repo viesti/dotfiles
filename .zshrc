@@ -5,9 +5,23 @@ SAVEHIST=1000
 HISTSIZE=1000
 HISTFILE=~/.zsh/.history
 
+function aws_color() {
+    case $AWS_ENVIRONMENT in
+        "dev")
+            echo -n red
+            ;;
+        "test")
+            echo -n blue
+            ;;
+        "prod")
+            echo -n green
+            ;;
+    esac
+}
+
 # make nicer prompt
 source ~/.zsh/git-prompt/zshrc.sh
-export PROMPT='%n@%m %~$(git_super_status)
+export PROMPT='%n@%m %F{$(aws_color $AWS_ENVIRONMENT)}$AWS_ENVIRONMENT%f %~$(git_super_status)
 %j%# '
 
 # set xterm title to pwd on each propmt
