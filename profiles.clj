@@ -32,4 +32,4 @@
  :clojars-release {:deploy-repositories [["releases" {:url "https://clojars.org/repo/"
                                                       :password :gpg
                                                       :username :gpg}]]}
- :eastwood {:plugins [[jonase/eastwood "0.3.3"]]}}
+ :eastwood {:plugins [[jonase/eastwood "0.3.5"]]}}
