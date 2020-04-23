@@ -6,7 +6,7 @@ HISTSIZE=1000
 HISTFILE=~/.zsh/.history
 
 # make nicer prompt
-export PROMPT='%n@%m %~ $(git_super_status)
+export PROMPT='%n@%m %~$(git_super_status) $AWS_PROFILE $AWS_DEFAULT_REGION
 %j%# '
 RPROMPT=''
 
@@ -15,16 +15,13 @@ precmd() {print -Pn "\e]0;%n@%m: %~\a"}
 
 # enable completions
 fpath=(/usr/local/share/zsh/site-functions $fpath)
-autoload -Uz compinit
-compinit
+#autoload -Uz compinit
+#compinit
 
 # ssh known_hosts to host completion
 local _myhosts
 _myhosts=( ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*} )
 zstyle ':completion:*' hosts $_myhosts
-
-# AWS CLI completion
-#source /usr/local/share/zsh/site-functions/_aws
 
 # Edit command line
 autoload -U edit-command-line
@@ -53,35 +50,45 @@ alias top='top -F -R -o cpu'
 export BREAK_CHARS="\"#'(),;\`\\|"
 alias sbcl="rlwrap -b \$BREAK_CHARS sbcl"
 
-export GOPATH=~/go
-
-# ** PATH **
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/opt/gettext/bin:$PATH # homebrew
-export PATH=$HOME/bin:$PATH
-export PATH=$PATH:/usr/local/share/npm/bin
-export PATH=$JAVA_HOME/bin:$PATH
-export PATH=$PATH:$GOPATH/bin
-# ** PATH **
-
 export SVN_EDITOR=emacs
-export CLOJURESCRIPT_HOME=/Users/viesti/programming/clojure/clojurescript
 
 export LC_CTYPE="en_US.UTF-8"
 #export LEIN_FAST_TRAMPOLINE=y
 alias cljsbuild="lein trampoline cljsbuild $@"
 
-export ANDROID_HOME=/usr/local/opt/android-sdk
+#export ANDROID_HOME=/usr/local/opt/android-sdk
+#ANDROID_NDK=/usr/local/Cellar/android-ndk/r10e
+#export ANDROID_HOME=/usr/local/opt/android-sdk
+
 export EDITOR=emacsclient
 
 export NVM_DIR="/Users/kimmoko/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-ANDROID_NDK=/usr/local/Cellar/android-ndk/r10e
-export ANDROID_HOME=/usr/local/opt/android-sdk
-export PATH=$PATH:/Users/kimmoko/.local/bin
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-source ~/programming/git-subrepo/.rc
+#source ~/programming/git-subrepo/.rc
 
 export LEIN_USE_BOOTCLASSPATH=y
+
+export ZSH_THEME_GIT_PROMPT_PREFIX='%{%}(%{%}'
+
+alias jdk8='export JAVA_HOME=`/usr/libexec/java_home -v 1.8`'
+
+if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/kimmoko/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/kimmoko/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Git blaming utility
+ggb() {
+    git grep -E -n $1 | while IFS=: read i j k; do git blame -L $j,$j $i | cat; done
+}
+
+# AWS CLI completion
+autoload bashcompinit
+bashcompinit
+complete -C '/usr/local/bin/aws_completer' aws
+
+# Groovy
+export GROOVY_HOME=/usr/local/opt/groovy/libexec
