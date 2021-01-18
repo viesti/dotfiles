@@ -140,7 +140,7 @@
 (use-package cc-mode
   :config
   (add-hook 'c-mode-hook 'imenu-add-menubar-index)
-  (add-hook 'c-mode-hook 'linum-mode)
+  (add-hook 'c-mode-hook 'display-line-numbers-mode)
   (add-hook 'c-mode-hook (lambda () (smartparens-mode 1)))
   (add-hook 'c-mode-common-hook
             (lambda ()
@@ -174,7 +174,7 @@
   :mode ("\\.js$" . js2-mode)
   :config
   (add-hook 'js2-mode-hook #'add-node-modules-path)
-  (add-hook 'js2-mode-hook 'linum-mode)
+  (add-hook 'js2-mode-hook 'display-line-numbers-mode)
   (add-hook 'js2-mode-hook
             '(lambda ()
                (local-set-key "\C-x\C-e" 'js-send-last-sexp)
@@ -257,12 +257,12 @@
 
 (use-package python
   :config
-  (add-hook 'python-mode-hook 'linum-mode)
+  (add-hook 'python-mode-hook 'display-line-numbers-mode)
   (add-hook 'python-mode-hook 'jedi:setup)
   (add-hook 'inferior-python-mode (lambda () (setq show-trailing-whitespace nil))))
 
 (use-package js
-  :config (add-hook 'js-mode-hook 'linum-mode))
+  :config (add-hook 'js-mode-hook 'display-line-numbers-mode))
 
 (use-package iedit)
 
@@ -315,7 +315,7 @@
 
 (use-package terraform-mode
   :config
-  (add-hook 'terraform-mode-hook 'linum-mode)
+  (add-hook 'terraform-mode-hook 'display-line-numbers-mode)
   (add-hook 'terraform-mode-hook 'company-mode))
 
 (use-package anakondo
@@ -449,7 +449,7 @@
       ;; others
       (with-additional-middleware 'defun)
       (fn-traced :defn))
-    (add-hook 'clojure-mode-hook 'linum-mode)
+    (add-hook 'clojure-mode-hook 'display-line-numbers-mode)
     (add-hook 'clojure-mode-hook 'yas-minor-mode))
 
   (use-package cider
@@ -465,7 +465,6 @@
     (add-hook 'cider-repl-mode-hook (lambda () (setq show-trailing-whitespace nil))))
   ;;(setq cider-font-lock-dynamically '(macro core function var))
   ;; (add-hook 'clojure-mode-hook (lambda () (yas-minor-mode 1)))
-  ;; (add-hook 'clojure-mode-hook 'linum-mode)
 
 
   ;(add-hook 'cider-mode-hook 'cider-profile-mode)
