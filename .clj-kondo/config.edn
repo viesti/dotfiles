@@ -1,0 +1,3 @@
+;; For linting Leiningen profiles.clj
+{:linters {:unresolved-namespace {:level :off}
+           :unresolved-symbol {:level :off}}}

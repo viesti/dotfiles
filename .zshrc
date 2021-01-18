@@ -15,8 +15,8 @@ precmd() {print -Pn "\e]0;%n@%m: %~\a"}
 
 # enable completions
 fpath=(/usr/local/share/zsh/site-functions $fpath)
-#autoload -Uz compinit
-#compinit
+autoload -Uz compinit
+compinit
 
 # ssh known_hosts to host completion
 local _myhosts
@@ -73,7 +73,7 @@ export LEIN_USE_BOOTCLASSPATH=y
 
 export ZSH_THEME_GIT_PROMPT_PREFIX='%{%}(%{%}'
 
-alias jdk8='export JAVA_HOME=`/usr/libexec/java_home -v 1.8`'
+#alias jdk8='export JAVA_HOME=`/usr/libexec/java_home -v 1.8`'
 
 if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi
 
@@ -92,3 +92,15 @@ complete -C '/usr/local/bin/aws_completer' aws
 
 # Groovy
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+alias awsume=". awsume"
+
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+#if [[ -r "/usr/local/opt/mcfly/mcfly.zsh" ]]; then
+#  source "/usr/local/opt/mcfly/mcfly.zsh"
+#fi

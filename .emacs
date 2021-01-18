@@ -20,33 +20,34 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ac-modes
-   (quote
-    (emacs-lisp-mode lisp-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode tcl-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode less-css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode qml-mode)))
+   '(emacs-lisp-mode lisp-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode tcl-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode less-css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode qml-mode))
  '(ag-highlight-search t)
  '(ag-reuse-buffers nil)
  '(ag-reuse-window nil)
  '(auto-revert-interval 2)
+ '(blink-cursor-mode nil)
  '(calendar-mark-diary-entries-flag t)
  '(calendar-view-diary-initially-flag t)
  '(calendar-week-start-day 1)
  '(cider-auto-select-error-buffer nil)
- '(cider-font-lock-dynamically (quote (macro function var deprecated core)))
+ '(cider-font-lock-dynamically '(macro function var deprecated core))
  '(cider-popup-on-error t)
  '(cider-popup-stacktraces t)
  '(cider-prompt-for-symbol nil)
  '(cider-repl-history-file "~/.emacs.d/nrepl-history.log")
- '(cider-show-error-buffer (quote except-in-repl))
+ '(cider-show-error-buffer 'except-in-repl)
  '(cljr-cljc-clojure-test-declaration
    "#?(:clj [clojure.test :refer [deftest is]]
 :cljs [cljs.test :as t :include-macros true])")
+ '(cljr-clojure-test-declaration "[clojure.test :refer [deftest is]]")
+ '(clojure-indent-style 'align-arguments)
  '(column-number-mode t)
  '(css-indent-offset 2)
  '(custom-safe-themes
-   (quote
-    ("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" default)))
+   '("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" default))
  '(european-calendar-style t)
  '(fill-column 120)
- '(flycheck-disabled-checkers (quote (javascript-jshint)))
+ '(flycheck-disabled-checkers '(javascript-jshint))
  '(ggtags-global-abbreviate-filename nil)
  '(global-auto-revert-mode t)
  '(global-font-lock-mode t nil (font-lock))
@@ -62,48 +63,49 @@
  '(jedi:install-imenu nil)
  '(js-chain-indent nil)
  '(js-expr-indent-offset 0)
- '(js-indent-level 4)
- '(js2-basic-offset 4)
+ '(js-indent-level 2)
+ '(js2-basic-offset 2)
  '(js2-bounce-indent-p nil)
  '(large-file-warning-threshold nil)
+ '(lsp-file-watch-ignored-directories
+   '("[/\\\\]\\.git\\'" "[/\\\\]\\.hg\\'" "[/\\\\]\\.bzr\\'" "[/\\\\]_darcs\\'" "[/\\\\]\\.svn\\'" "[/\\\\]_FOSSIL_\\'" "[/\\\\]\\.idea\\'" "[/\\\\]\\.ensime_cache\\'" "[/\\\\]\\.eunit\\'" "[/\\\\]node_modules" "[/\\\\]\\.fslckout\\'" "[/\\\\]\\.tox\\'" "[/\\\\]dist\\'" "[/\\\\]dist-newstyle\\'" "[/\\\\]\\.stack-work\\'" "[/\\\\]\\.bloop\\'" "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.deps\\'" "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'" "node_modules" "target" "\\.shadow-cljs"))
+ '(lsp-ui-doc-position 'bottom)
  '(mac-font-panel-mode nil)
- '(magit-diff-refine-hunk (quote all))
+ '(magit-diff-refine-hunk 'all)
  '(magit-use-overlays t)
  '(mark-diary-entries-in-calendar t)
  '(mc/always-repeat-command t)
  '(mouse-drag-copy-region t)
  '(mouse-wheel-mode t nil (mwheel))
  '(mouse-wheel-progressive-speed nil)
- '(ns-alternate-modifier (quote none))
- '(ns-command-modifier (quote super))
- '(ns-right-alternate-modifier (quote meta))
- '(ns-right-command-modifier (quote left))
+ '(ns-alternate-modifier 'none)
+ '(ns-command-modifier 'super)
+ '(ns-right-alternate-modifier 'meta)
+ '(ns-right-command-modifier 'left)
  '(number-of-diary-entries 3)
  '(package-selected-packages
-   (quote
-    (company-terraform csv-mode projectile projectile-ripgrep floobits rjsx-mode flymake-eslint flycheck-grammarly flycheck-plantuml plantuml-mode company-lsp go-mode browse-at-remote js-doc docker sqlup-mode format-sql dired-sidebar use-package add-node-modules-path ansible-vault adoc-mode reveal-in-osx-finder xref-js2 default-text-scale flycheck-clj-kondo magit-imerge deadgrep ido-completing-read+ calfw-ical docker-tramp dockerfile-mode ess dash-at-point graphviz-dot-mode groovy-mode which-key terraform-mode yasnippet wgrep starter-kit spinner smex scala-mode sbt-mode s python-environment popwin popup pkg-info peg paredit nose multiple-cursors magit-popup json-snatcher json-reformat js2-mode jedi-core jedi ido-ubiquitous idle-highlight-mode hydra helm-core helm git-gutter fringe-helper flymake-easy flx find-file-in-project es-windows es-lib epl epc elisp-slime-nav edn direx deferred ctable concurrent company color-theme auto-complete yaml-mode writegood-mode wgrep-ag web-beautify starter-kit-lisp starter-kit-eshell starter-kit-bindings sr-speedbar smartparens slamhound request rainbow-delimiters project-explorer php-mode occur-context-resize nose-mode nlinum nginx-mode newlisp-mode mo-git-blame midje-mode markdown-mode magit-find-file lua-mode levenshtein less-css-mode latest-clojure-libraries jump-char json-mode js2-refactor js2-closure js-comint jedi-direx javap-mode iedit hy-mode highlight-symbol highlight-parentheses highlight helm-cmd-t guile-scheme gtags gitconfig git-gutter-fringe ggtags free-keys flymake-json flymake-jshint flx-ido find-file-in-repository expand-region exec-path-from-shell eval-sexp-fu etags-table etags-select epoch-view ensime cycbuf command-t color-theme-solarized color-theme-github clojurescript-mode cljdoc cedit buffer-move anyins ace-jump-mode ac-ispell)))
+   '(treemacs lsp-ui lsp-mode imenu-anywhere zprint-mode jdecomp clj-decompiler clojure-essential-ref vega-view anakondo company-terraform csv-mode projectile projectile-ripgrep floobits rjsx-mode flymake-eslint flycheck-grammarly flycheck-plantuml plantuml-mode company-lsp go-mode browse-at-remote js-doc docker sqlup-mode format-sql dired-sidebar use-package add-node-modules-path ansible-vault adoc-mode reveal-in-osx-finder xref-js2 default-text-scale flycheck-clj-kondo magit-imerge ido-completing-read+ calfw-ical docker-tramp dockerfile-mode ess dash-at-point graphviz-dot-mode groovy-mode which-key terraform-mode yasnippet wgrep starter-kit spinner smex scala-mode sbt-mode s python-environment popwin popup pkg-info peg paredit nose multiple-cursors magit-popup json-snatcher json-reformat js2-mode jedi-core jedi ido-ubiquitous idle-highlight-mode hydra helm-core helm git-gutter fringe-helper flymake-easy flx find-file-in-project es-windows es-lib epl epc elisp-slime-nav edn direx deferred ctable concurrent company color-theme auto-complete yaml-mode writegood-mode wgrep-ag web-beautify starter-kit-lisp starter-kit-eshell starter-kit-bindings sr-speedbar smartparens slamhound request rainbow-delimiters project-explorer php-mode occur-context-resize nose-mode nlinum nginx-mode newlisp-mode mo-git-blame midje-mode markdown-mode magit-find-file lua-mode levenshtein less-css-mode latest-clojure-libraries jump-char json-mode js2-refactor js2-closure js-comint jedi-direx javap-mode iedit hy-mode highlight-symbol highlight-parentheses highlight helm-cmd-t guile-scheme gtags gitconfig git-gutter-fringe ggtags free-keys flymake-json flymake-jshint flx-ido find-file-in-repository exec-path-from-shell eval-sexp-fu etags-table etags-select epoch-view ensime cycbuf command-t color-theme-solarized color-theme-github clojurescript-mode cljdoc cedit buffer-move anyins ace-jump-mode ac-ispell))
  '(python-shell-interpreter "python")
- '(ring-bell-function (quote ignore))
+ '(ring-bell-function 'ignore)
  '(safe-local-variable-values
-   (quote
-    ((cider-refresh-after-fn . "integrant.repl/resume")
+   '((cider-refresh-after-fn . "integrant.repl/resume")
      (cider-refresh-before-fn . "integrant.repl/suspend")
      (cider-cljs-lein-repl . "(do (dev) (go) (cljs-repl))")
      (cider-refresh-after-fn . "reloaded.repl/resume")
      (cider-refresh-before-fn . "reloaded.repl/suspend")
      (whitespace-line-column . 80)
-     (lexical-binding . t))))
- '(savehist-additional-variables (quote (kill-ring search-ring regexp-search-ring)))
+     (lexical-binding . t)))
+ '(savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
  '(savehist-file "~/.emacs.d/savehist")
- '(scroll-bar-mode (quote right))
+ '(scroll-bar-mode 'right)
  '(sgml-basic-offset 4)
  '(shift-select-mode t)
  '(show-paren-mode t)
  '(show-trailing-whitespace t)
- '(speedbar-default-position (quote left))
+ '(speedbar-default-position 'left)
  '(speedbar-show-unknown-files t)
  '(sr-speedbar-right-side nil)
- '(tab-width 4)
+ '(tab-width 2)
  '(tool-bar-mode nil)
  '(transient-mark-mode t)
  '(view-diary-entries-initially t)
@@ -290,9 +292,6 @@
 
 (use-package highlight-parentheses)
 
-(use-package magit
-  :config (setq magit-last-seen-setup-instructions "1.4.0"))
-
 (use-package flx-ido
   :config
   (ido-mode 1)
@@ -319,6 +318,15 @@
   (add-hook 'terraform-mode-hook 'linum-mode)
   (add-hook 'terraform-mode-hook 'company-mode))
 
+(use-package anakondo
+  :ensure t
+  :commands anakondo-minor-mode
+  :config
+  (add-hook 'clojurescript-mode-hook #'anakondo-minor-mode))
+
+(use-package clojure-essential-ref
+  :ensure t)
+
 ;; Remove confirmation from up/downcase region
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
@@ -327,7 +335,11 @@
 (global-set-key [home] 'beginning-of-buffer)
 (global-set-key [end] 'end-of-buffer)
 (global-set-key (kbd "C-x f") 'find-file-in-repository)
-(global-set-key (kbd "M-z") 'er/expand-region)
+(global-set-key (kbd "C-z") 'er/expand-region)
+(global-unset-key (kbd "C-+"))
+(global-set-key (kbd "C--") 'er/contract-region)
+;;(global-set-key (kbd "C-<return>") 'er/contract-region)
+(pending-delete-mode t)
 (delete-selection-mode 1)
 (menu-bar-mode 1)
 
@@ -373,7 +385,7 @@
 ;; System configuration
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
-  (exec-path-from-shell-copy-env "JAVA_HOME"))
+  (exec-path-from-shell-copy-envs '("JAVA_HOME" "LANG" "LC_ALL")))
 (when window-system
   (load-theme 'deeper-blue t))
 
@@ -381,7 +393,7 @@
   "Clojure configuration."
   (use-package flycheck-clj-kondo)
   (use-package clojure-mode
-    :mode ("\\.cljc$" . clojure-mode)
+    :mode ("\\.cljc$" . clojurec-mode)
     :config
     (define-clojure-indent
       ;; compojure
@@ -428,9 +440,15 @@
       (rate 'defun)
       (with 'defun)
       (timing 'defun)
+      ;; mocha-latte + latte-chai
+      (describe 'defun)
+      (it 'defun)
+      (before 'defun)
       ;; core.match
       (match 'defun)
-      (with-additional-middleware 'defun))
+      ;; others
+      (with-additional-middleware 'defun)
+      (fn-traced :defn))
     (add-hook 'clojure-mode-hook 'linum-mode)
     (add-hook 'clojure-mode-hook 'yas-minor-mode))
 
@@ -462,9 +480,35 @@
                             (save-some-buffers)
                             (with-current-buffer (cider-current-repl-buffer)
                               (cider-interactive-eval
-                               "(reloaded.repl/reset)")))))
+                               "(integrant.repl/reset)")))))
       (define-key cider-mode-map (kbd "C-'") reloaded-reset)
-      (define-key clojure-mode-map (kbd "C-'") reloaded-reset))))
+      (define-key clojure-mode-map (kbd "C-'") reloaded-reset)))
+
+
+  (use-package lsp-mode
+    :ensure t
+    ;; :hook ((clojure-mode . lsp)
+    ;;        (clojurec-mode . lsp)
+    ;;        (clojurescript-mode . lsp))
+    :config
+    ;; add paths to your local installation of project mgmt tools, like lein
+    (setenv "PATH" (concat
+                    "/usr/local/bin" path-separator
+                    (getenv "PATH")))
+    (dolist (m '(clojure-mode
+                 clojurec-mode
+                 clojurescript-mode
+                 clojurex-mode))
+      (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
+    (setq lsp-clojure-server-command '("bash" "-c" "clojure-lsp")))
+
+  (use-package lsp-ui
+    :ensure t
+    :commands lsp-ui-mode)
+
+  (use-package company-lsp
+    :ensure t
+    :commands company-lsp))
 
 (clojure-config)
 
@@ -506,17 +550,26 @@
   'executable-make-buffer-file-executable-if-script-p)
 
 (eval-after-load "flyspell"
-    '(progn
-       (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word)
-       (define-key flyspell-mouse-map [mouse-3] #'undefined)))
+  '(progn
+     (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word)
+     (define-key flyspell-mouse-map [mouse-3] #'undefined)))
 
 ;;(load-file ".emacs.d/emacs-vega-view/vega-view.el")
-(add-to-list 'load-path "~/.emacs.d/lisp/emacs-vega-view")
+;;(add-to-list 'load-path "~/.emacs.d/lisp/emacs-vega-view")
 (add-to-list 'load-path "~/.emacs.d/lisp/csv-mode-1.12")
-(add-to-list 'load-path "~/.emacs.d/lisp/anakondo")
-(autoload 'anakondo-minor-mode "anakondo")
-;; Enable anakondo-minor-mode in all ClojureScript buffers
-(add-hook 'clojurescript-mode-hook #'anakondo-minor-mode)
+
+(customize-set-variable 'jdecomp-decompiler-paths
+                        '((fernflower . "~/bin/fernflower.jar")))
+(customize-set-variable 'jdecomp-decompiler-type 'fernflower)
+
+(global-set-key (kbd "C-s-c C-s-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+(global-set-key (kbd "s-.") #'deadgrep)
+
+(setq dired-listing-switches "-alh")
 
 (provide 'emacs)
 ;;; .emacs ends here

@@ -12,6 +12,7 @@
 [core]
 	editor = emacsclient
 	excludesfile = /Users/kimmoko/.gitignore_global
+	attributesfile = /Users/kimmoko/.gitattributes
 [push]
 	default = simple
 [credential]
@@ -23,3 +24,7 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[init]
+	defaultBranch = main
+[diff "clojure"]
+	xfuncname = (^\\(.*|\\s*\\(defn.*)
