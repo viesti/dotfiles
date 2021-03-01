@@ -84,7 +84,7 @@
  '(ns-right-command-modifier 'left)
  '(number-of-diary-entries 3)
  '(package-selected-packages
-   '(treemacs lsp-ui lsp-mode imenu-anywhere zprint-mode jdecomp clj-decompiler clojure-essential-ref vega-view anakondo company-terraform csv-mode projectile projectile-ripgrep floobits rjsx-mode flymake-eslint flycheck-grammarly flycheck-plantuml plantuml-mode company-lsp go-mode browse-at-remote js-doc docker sqlup-mode format-sql dired-sidebar use-package add-node-modules-path ansible-vault adoc-mode reveal-in-osx-finder xref-js2 default-text-scale flycheck-clj-kondo magit-imerge ido-completing-read+ calfw-ical docker-tramp dockerfile-mode ess dash-at-point graphviz-dot-mode groovy-mode which-key terraform-mode yasnippet wgrep starter-kit spinner smex scala-mode sbt-mode s python-environment popwin popup pkg-info peg paredit nose multiple-cursors magit-popup json-snatcher json-reformat js2-mode jedi-core jedi ido-ubiquitous idle-highlight-mode hydra helm-core helm git-gutter fringe-helper flymake-easy flx find-file-in-project es-windows es-lib epl epc elisp-slime-nav edn direx deferred ctable concurrent company color-theme auto-complete yaml-mode writegood-mode wgrep-ag web-beautify starter-kit-lisp starter-kit-eshell starter-kit-bindings sr-speedbar smartparens slamhound request rainbow-delimiters project-explorer php-mode occur-context-resize nose-mode nlinum nginx-mode newlisp-mode mo-git-blame midje-mode markdown-mode magit-find-file lua-mode levenshtein less-css-mode latest-clojure-libraries jump-char json-mode js2-refactor js2-closure js-comint jedi-direx javap-mode iedit hy-mode highlight-symbol highlight-parentheses highlight helm-cmd-t guile-scheme gtags gitconfig git-gutter-fringe ggtags free-keys flymake-json flymake-jshint flx-ido find-file-in-repository exec-path-from-shell eval-sexp-fu etags-table etags-select epoch-view ensime cycbuf command-t color-theme-solarized color-theme-github clojurescript-mode cljdoc cedit buffer-move anyins ace-jump-mode ac-ispell))
+   '(inf-clojure amx treemacs lsp-ui imenu-anywhere zprint-mode jdecomp clj-decompiler clojure-essential-ref vega-view anakondo company-terraform csv-mode projectile-ripgrep floobits rjsx-mode flymake-eslint flycheck-grammarly flycheck-plantuml plantuml-mode company-lsp go-mode browse-at-remote js-doc docker sqlup-mode format-sql dired-sidebar use-package add-node-modules-path ansible-vault adoc-mode reveal-in-osx-finder xref-js2 default-text-scale flycheck-clj-kondo magit-imerge ido-completing-read+ calfw-ical docker-tramp dockerfile-mode ess dash-at-point graphviz-dot-mode groovy-mode which-key terraform-mode yasnippet wgrep starter-kit spinner smex scala-mode sbt-mode s python-environment popwin popup pkg-info peg paredit nose multiple-cursors magit-popup json-snatcher json-reformat js2-mode jedi-core jedi idle-highlight-mode hydra helm-core helm git-gutter fringe-helper flymake-easy flx find-file-in-project es-windows es-lib epl epc elisp-slime-nav edn direx deferred ctable concurrent company color-theme auto-complete yaml-mode writegood-mode wgrep-ag web-beautify starter-kit-lisp starter-kit-eshell starter-kit-bindings sr-speedbar smartparens slamhound request rainbow-delimiters project-explorer php-mode occur-context-resize nose-mode nlinum nginx-mode newlisp-mode mo-git-blame midje-mode markdown-mode magit-find-file levenshtein less-css-mode latest-clojure-libraries jump-char json-mode js2-refactor js2-closure js-comint jedi-direx javap-mode iedit hy-mode highlight-symbol highlight-parentheses highlight helm-cmd-t guile-scheme gtags gitconfig git-gutter-fringe ggtags free-keys flymake-json flymake-jshint flx-ido find-file-in-repository exec-path-from-shell eval-sexp-fu etags-table etags-select epoch-view ensime cycbuf command-t color-theme-solarized color-theme-github clojurescript-mode cljdoc cedit buffer-move anyins ace-jump-mode ac-ispell))
  '(python-shell-interpreter "python")
  '(ring-bell-function 'ignore)
  '(safe-local-variable-values
@@ -121,8 +121,19 @@
  ;; If there is more than one, they won't work right.
  '(font-lock-keyword-face ((((class color) (min-colors 8)) (:foreground "magenta" :weight bold)))))
 
+(font-lock-add-keywords nil
+                        '(("\\<\\(FIXME\\|TODO\\)"
+                           1 font-lock-warning-face prepend)))
+
 ;; (require 'use-package-ensure)
 ;; (setq use-package-always-ensure t)
+
+(require 'ido-completing-read+)
+(ido-ubiquitous-mode 1)
+(require 'amx)
+(amx-mode 1)
+(require 'icomplete)
+(icomplete-mode 1)
 
 (use-package dired-sidebar
   :commands (dired-sidebar-toggle-sidebar))
@@ -241,7 +252,9 @@
   (global-set-key (kbd "C-<down>") 'highlight-symbol-next))
 
 (use-package paredit
-  ;;:init (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+  :init (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+  :config
+  (add-hook 'lisp-mode-hook #'enable-paredit-mode)
   :bind
   ("C-s-<right>" . paredit-forward)
   ("C-s-<left>" . paredit-backward)
@@ -252,6 +265,11 @@
   ;;        ((kbd "<C-s-up>") . 'paredit-backward-up)
   ;;        ((kbd "<C-s-down>") . 'paredit-backward-down))
   )
+
+(require 'eldoc) ; if not already loaded
+(eldoc-add-command
+ 'paredit-backward-delete
+ 'paredit-close-round)
 
 (use-package jedi)
 
@@ -450,7 +468,8 @@
       (with-additional-middleware 'defun)
       (fn-traced :defn))
     (add-hook 'clojure-mode-hook 'display-line-numbers-mode)
-    (add-hook 'clojure-mode-hook 'yas-minor-mode))
+    (add-hook 'clojure-mode-hook 'yas-minor-mode)
+    (add-hook 'clojure-mode-hook #'enable-paredit-mode))
 
   (use-package cider
     :config
@@ -569,6 +588,7 @@
 (global-set-key (kbd "s-.") #'deadgrep)
 
 (setq dired-listing-switches "-alh")
+(add-to-list 'ido-read-file-name-non-ido 'dired-create-directory)
 
 (provide 'emacs)
 ;;; .emacs ends here
