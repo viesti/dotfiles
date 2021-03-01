@@ -37,4 +37,5 @@
  :hashp {:dependencies [[hashp "0.2.0"]]
          :injections [(require 'hashp.core)]}
  :portal {:dependencies [[djblue/portal "0.7.0"]]}
+ :nightlight {:plugins [[nightlight/lein-nightlight "RELEASE"]]}
  :user [:shared :global-opts :jvm-opts :injected-tools :hashp :cider :portal]}
