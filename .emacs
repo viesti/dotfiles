@@ -587,7 +587,7 @@
 
 (global-set-key (kbd "s-.") #'deadgrep)
 
-(setq dired-listing-switches "-alh")
+(setq dired-listing-switches "-alhrt")
 (add-to-list 'ido-read-file-name-non-ido 'dired-create-directory)
 
 (provide 'emacs)
