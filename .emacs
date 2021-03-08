@@ -70,6 +70,9 @@
  '(lsp-file-watch-ignored-directories
    '("[/\\\\]\\.git\\'" "[/\\\\]\\.hg\\'" "[/\\\\]\\.bzr\\'" "[/\\\\]_darcs\\'" "[/\\\\]\\.svn\\'" "[/\\\\]_FOSSIL_\\'" "[/\\\\]\\.idea\\'" "[/\\\\]\\.ensime_cache\\'" "[/\\\\]\\.eunit\\'" "[/\\\\]node_modules" "[/\\\\]\\.fslckout\\'" "[/\\\\]\\.tox\\'" "[/\\\\]dist\\'" "[/\\\\]dist-newstyle\\'" "[/\\\\]\\.stack-work\\'" "[/\\\\]\\.bloop\\'" "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.deps\\'" "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'" "node_modules" "target" "\\.shadow-cljs"))
  '(lsp-ui-doc-position 'bottom)
+ '(lsp-ui-sideline-show-code-actions nil)
+ '(lsp-ui-sideline-show-diagnostics nil)
+ '(lsp-ui-sideline-show-symbol nil)
  '(mac-font-panel-mode nil)
  '(magit-diff-refine-hunk 'all)
  '(magit-use-overlays t)
@@ -518,7 +521,10 @@
                  clojurescript-mode
                  clojurex-mode))
       (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
-    (setq lsp-clojure-server-command '("bash" "-c" "clojure-lsp")))
+    (setq lsp-clojure-server-command '("bash" "-c" "clojure-lsp"))
+    (setq gc-cons-threshold 100000000)
+    ;; 1mb
+    (setq read-process-output-max (* 1024 1024)))
 
   (use-package lsp-ui
     :ensure t
