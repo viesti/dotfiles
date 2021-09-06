@@ -18,7 +18,7 @@
                                (pjstadig.humane-test-output/activate!)]}
  :jvm-opts {:jvm-opts [;; Keep stacktraces
                        "-XX:-OmitStackTraceInFastThrow"]}
- :cider {:plugins [[cider/cider-nrepl "0.25.5"]
+ :cider {:plugins [[cider/cider-nrepl "0.26.0"]
                    [refactor-nrepl "2.5.0"]]}
  :wait-debugger {:jvm-opts ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"
                             "-Djava.rmi.server.hostname=127.0.0.1"]}
@@ -34,7 +34,7 @@
                          [cljfmt "0.6.4"]]
           :resource-paths ["/Users/kimmoko/home/rebl/REBL-0.9.220/REBL-0.9.220.jar"]
           :injections [(require 'nrebl.middleware) (require '[cognitect.rebl :as rebl])]}
- :hashp {:dependencies [[hashp "0.2.0"]]
+ :hashp {:dependencies [[hashp "0.2.1"]]
          :injections [(require 'hashp.core)]}
  :portal {:dependencies [[djblue/portal "0.7.0"]]}
  :nightlight {:plugins [[nightlight/lein-nightlight "RELEASE"]]}
