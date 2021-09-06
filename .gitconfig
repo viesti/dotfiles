@@ -8,7 +8,7 @@
 	wshow = show --color-words
 	cp = cherry-pick
 	spp = !git stash && git pull && git stash pop
-    rbc = rebase --continue
+  rbc = rebase --continue
 [core]
 	editor = emacsclient
 	excludesfile = /Users/kimmoko/.gitignore_global
@@ -26,5 +26,11 @@
 	process = git-lfs filter-process
 [init]
 	defaultBranch = main
+[diff]
+  tool = difftastic
 [diff "clojure"]
 	xfuncname = (^\\(.*|\\s*\\(defn.*)
+[difftool]
+  prompt = false
+[difftool "difftastic"]
+  cmd = difftastic "$LOCAL" "$REMOTE"
