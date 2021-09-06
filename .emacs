@@ -11,6 +11,10 @@
              '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
+
+;; (lsp-file-watch-ignored-directories
+;;   '("[/\\\\]\\.git\\'" "[/\\\\]\\.hg\\'" "[/\\\\]\\.bzr\\'" "[/\\\\]_darcs\\'" "[/\\\\]\\.svn\\'" "[/\\\\]_FOSSIL_\\'" "[/\\\\]\\.idea\\'" "[/\\\\]\\.ensime_cache\\'" "[/\\\\]\\.eunit\\'" "[/\\\\]node_modules" "[/\\\\]\\.fslckout\\'" "[/\\\\]\\.tox\\'" "[/\\\\]dist\\'" "[/\\\\]dist-newstyle\\'" "[/\\\\]\\.stack-work\\'" "[/\\\\]\\.bloop\\'" "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.deps\\'" "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'" "node_modules" "target" "\\.shadow-cljs"))
+
 (eval-when-compile
   (require 'use-package))
 
@@ -67,11 +71,17 @@
  '(js2-basic-offset 2)
  '(js2-bounce-indent-p nil)
  '(large-file-warning-threshold nil)
+ '(lsp-eldoc-enable-hover nil)
  '(lsp-file-watch-ignored-directories
-   '("[/\\\\]\\.git\\'" "[/\\\\]\\.hg\\'" "[/\\\\]\\.bzr\\'" "[/\\\\]_darcs\\'" "[/\\\\]\\.svn\\'" "[/\\\\]_FOSSIL_\\'" "[/\\\\]\\.idea\\'" "[/\\\\]\\.ensime_cache\\'" "[/\\\\]\\.eunit\\'" "[/\\\\]node_modules" "[/\\\\]\\.fslckout\\'" "[/\\\\]\\.tox\\'" "[/\\\\]dist\\'" "[/\\\\]dist-newstyle\\'" "[/\\\\]\\.stack-work\\'" "[/\\\\]\\.bloop\\'" "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.deps\\'" "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'" "node_modules" "target" "\\.shadow-cljs"))
+   '("[/\\\\]\\.git\\'" "[/\\\\]\\.hg\\'" "[/\\\\]\\.bzr\\'" "[/\\\\]_darcs\\'" "[/\\\\]\\.svn\\'" "[/\\\\]_FOSSIL_\\'" "[/\\\\]\\.idea\\'" "[/\\\\]\\.ensime_cache\\'" "[/\\\\]\\.eunit\\'" "[/\\\\]node_modules" "[/\\\\]\\.fslckout\\'" "[/\\\\]\\.tox\\'" "[/\\\\]dist\\'" "[/\\\\]dist-newstyle\\'" "[/\\\\]\\.stack-work\\'" "[/\\\\]\\.bloop\\'" "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.deps\\'" "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'" "[/\\\\]target\\'" "[/\\\\]\\.clj-kondo\\'" "[/\\\\]\\.shadow-cljs\\'"))
+ '(lsp-headerline-breadcrumb-enable nil)
+ '(lsp-lens-enable nil)
+ '(lsp-ui-doc-enable nil)
  '(lsp-ui-doc-position 'bottom)
+ '(lsp-ui-doc-show-with-cursor nil)
  '(lsp-ui-sideline-show-code-actions nil)
  '(lsp-ui-sideline-show-diagnostics nil)
+ '(lsp-ui-sideline-show-hover nil)
  '(lsp-ui-sideline-show-symbol nil)
  '(mac-font-panel-mode nil)
  '(magit-diff-refine-hunk 'all)
@@ -87,11 +97,12 @@
  '(ns-right-command-modifier 'left)
  '(number-of-diary-entries 3)
  '(package-selected-packages
-   '(mermaid-mode inf-clojure amx treemacs imenu-anywhere zprint-mode jdecomp clj-decompiler clojure-essential-ref vega-view anakondo company-terraform csv-mode projectile-ripgrep floobits rjsx-mode flymake-eslint flycheck-grammarly flycheck-plantuml plantuml-mode go-mode browse-at-remote js-doc docker sqlup-mode format-sql dired-sidebar use-package add-node-modules-path ansible-vault adoc-mode reveal-in-osx-finder xref-js2 default-text-scale magit-imerge calfw-ical docker-tramp dockerfile-mode ess dash-at-point graphviz-dot-mode groovy-mode which-key terraform-mode yasnippet wgrep starter-kit spinner smex scala-mode sbt-mode s python-environment popwin popup pkg-info peg paredit nose multiple-cursors magit-popup json-snatcher json-reformat js2-mode jedi-core jedi idle-highlight-mode hydra helm-core helm git-gutter fringe-helper flymake-easy flx find-file-in-project es-windows es-lib epl epc elisp-slime-nav edn direx deferred ctable concurrent company color-theme auto-complete yaml-mode writegood-mode wgrep-ag web-beautify starter-kit-lisp starter-kit-eshell starter-kit-bindings sr-speedbar smartparens slamhound request rainbow-delimiters project-explorer php-mode occur-context-resize nose-mode nlinum nginx-mode newlisp-mode mo-git-blame midje-mode markdown-mode magit-find-file levenshtein less-css-mode latest-clojure-libraries jump-char json-mode js2-refactor js2-closure js-comint jedi-direx javap-mode iedit hy-mode highlight-symbol highlight-parentheses highlight helm-cmd-t guile-scheme gtags gitconfig git-gutter-fringe ggtags free-keys flymake-json flymake-jshint flx-ido find-file-in-repository exec-path-from-shell eval-sexp-fu etags-table etags-select epoch-view ensime cycbuf command-t color-theme-solarized color-theme-github clojurescript-mode cljdoc cedit buffer-move anyins ace-jump-mode ac-ispell))
+   '(ivy counsel sqlformat lsp-ivy inf-clojure amx treemacs imenu-anywhere zprint-mode jdecomp clj-decompiler clojure-essential-ref vega-view anakondo company-terraform csv-mode projectile-ripgrep floobits rjsx-mode flymake-eslint flycheck-grammarly flycheck-plantuml plantuml-mode go-mode browse-at-remote js-doc docker sqlup-mode format-sql dired-sidebar use-package add-node-modules-path ansible-vault adoc-mode reveal-in-osx-finder xref-js2 default-text-scale magit-imerge calfw-ical docker-tramp dockerfile-mode ess dash-at-point graphviz-dot-mode groovy-mode which-key terraform-mode yasnippet wgrep starter-kit spinner smex scala-mode sbt-mode s python-environment popwin popup pkg-info peg paredit nose multiple-cursors magit-popup json-snatcher json-reformat js2-mode jedi-core jedi idle-highlight-mode hydra helm-core helm git-gutter fringe-helper flymake-easy flx find-file-in-project es-windows es-lib epl epc elisp-slime-nav edn direx deferred ctable concurrent company color-theme auto-complete yaml-mode writegood-mode wgrep-ag web-beautify starter-kit-lisp starter-kit-eshell starter-kit-bindings sr-speedbar smartparens slamhound request rainbow-delimiters project-explorer php-mode occur-context-resize nose-mode nlinum nginx-mode newlisp-mode mo-git-blame midje-mode markdown-mode magit-find-file levenshtein less-css-mode latest-clojure-libraries jump-char json-mode js2-refactor js2-closure js-comint jedi-direx javap-mode iedit hy-mode highlight-symbol highlight-parentheses highlight helm-cmd-t guile-scheme gtags gitconfig git-gutter-fringe ggtags free-keys flymake-json flymake-jshint flx-ido find-file-in-repository exec-path-from-shell eval-sexp-fu etags-table etags-select epoch-view ensime cycbuf command-t color-theme-solarized color-theme-github clojurescript-mode cljdoc cedit buffer-move anyins ace-jump-mode ac-ispell))
  '(python-shell-interpreter "python")
  '(ring-bell-function 'ignore)
  '(safe-local-variable-values
-   '((cider-refresh-after-fn . "integrant.repl/resume")
+   '((cider-shadow-cljs-default-options . "app")
+     (cider-refresh-after-fn . "integrant.repl/resume")
      (cider-refresh-before-fn . "integrant.repl/suspend")
      (cider-cljs-lein-repl . "(do (dev) (go) (cljs-repl))")
      (cider-refresh-after-fn . "reloaded.repl/resume")
@@ -406,7 +417,8 @@
 ;; System configuration
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
-  (exec-path-from-shell-copy-envs '("JAVA_HOME" "LANG" "LC_ALL")))
+  (exec-path-from-shell-copy-envs '("JAVA_HOME" "LANG" "LC_ALL"))
+  (set-frame-font "Menlo 13" nil t))
 (when window-system
   (load-theme 'deeper-blue t))
 
@@ -465,6 +477,7 @@
       (describe 'defun)
       (it 'defun)
       (before 'defun)
+      (beforeEach 'defun)
       ;; core.match
       (match 'defun)
       ;; others
@@ -508,9 +521,9 @@
 
   (use-package lsp-mode
     :ensure t
-    ;; :hook ((clojure-mode . lsp)
-    ;;        (clojurec-mode . lsp)
-    ;;        (clojurescript-mode . lsp))
+    :hook ((clojure-mode . lsp)
+           (clojurec-mode . lsp)
+           (clojurescript-mode . lsp))
     :config
     ;; add paths to your local installation of project mgmt tools, like lein
     (setenv "PATH" (concat
@@ -521,8 +534,9 @@
                  clojurescript-mode
                  clojurex-mode))
       (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
-    (setq lsp-clojure-server-command '("bash" "-c" "clojure-lsp"))
-    (setq gc-cons-threshold 100000000)
+    ;;(setq lsp-clojure-server-command '("bash" "-c" "clojure-lsp"))
+    (setq gc-cons-threshold 100000000
+          lsp-enable-indentation nil)
     ;; 1mb
     (setq read-process-output-max (* 1024 1024)))
 
@@ -593,8 +607,57 @@
 
 (global-set-key (kbd "s-.") #'deadgrep)
 
-(setq dired-listing-switches "-alhrt")
+;;(setq dired-listing-switches "-alhrt")
 (add-to-list 'ido-read-file-name-non-ido 'dired-create-directory)
+(when (string= system-type "darwin")
+  (setq dired-use-ls-dired t
+        insert-directory-program "/usr/local/bin/gls"
+        dired-listing-switches "-aBhl --group-directories-first"))
+
+;; tmate.io
+(defadvice terminal-init-screen
+    ;; The advice is named `tmux', and is run before `terminal-init-screen' runs.
+    (before tmux activate)
+  ;; Docstring.  This describes the advice and is made available inside emacs;
+  ;; for example when doing C-h f terminal-init-screen RET
+  "Apply xterm keymap, allowing use of keys passed through tmux."
+  ;; This is the elisp code that is run before `terminal-init-screen'.
+  (if (getenv "TMUX")
+      (let ((map (copy-keymap xterm-function-map)))
+        (set-keymap-parent map (keymap-parent input-decode-map))
+        (set-keymap-parent input-decode-map map))))
+
+;; sqlformat
+(setq sqlformat-command 'pgformatter)
+(setq sqlformat-args '("-s2" "-g" "-L"))
+
+;; (lsp-register-client
+;;  (make-lsp-client :new-connection (lsp-stdio-connection '("/usr/local/bin/terraform-ls" "serve"))
+;;                   :major-modes '(terraform-mode)
+;;                   :server-id 'terraform-ls))
+
+(add-hook 'terraform-mode-hook #'lsp)
+
+;;(setq ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected)
+(setq ivy-use-selectable-prompt t)
+
+;; org mode
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+
+(setq org-publish-project-alist
+      '(("quuppa"
+         :base-directory "~/work/quuppa"
+         :publishing-directory "~/work/quuppa/org-public")))
+
+(defun nomis/lsp-eldoc ()
+  ;; Don't blat signatures from CIDER.
+  (unless (ignore-errors (cider-repls))
+    (lsp-hover)))
+
+(setq lsp-eldoc-hook '(nomis/lsp-eldoc))
+
 
 (provide 'emacs)
 ;;; .emacs ends here
