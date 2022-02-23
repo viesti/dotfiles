@@ -5,10 +5,10 @@
           #_#_:figwheel {:open-file-command "figwheel-file-opener"}
           #_#_:source-paths ["/users/kimmoko/.clojure/user"]}
  :global-opts {:global-vars {*print-length* 100}}
- :ancient {:plugins [[lein-ancient "0.6.15"]]}
+ :ancient {:plugins [[lein-ancient "1.0.0-RC3"]]}
  :injected-tools {:dependencies [#_[im.chit/lucid.core.inject "1.2.8"]
                                  #_[org.clojure/tools.namespace "0.2.11"]
-                                 [pjstadig/humane-test-output "0.10.0"]]
+                                 [pjstadig/humane-test-output "0.11.0"]]
                   :injections [#_(require '[lucid.core.inject :as inject])
                                #_(inject/in
                                 [clojure.tools.namespace.repl refresh]
@@ -18,8 +18,11 @@
                                (pjstadig.humane-test-output/activate!)]}
  :jvm-opts {:jvm-opts [;; Keep stacktraces
                        "-XX:-OmitStackTraceInFastThrow"]}
- :cider {:plugins [[cider/cider-nrepl "0.26.0"]
-                   [refactor-nrepl "2.5.0"]]}
+ :cider {:dependencies [[nrepl/nrepl "0.9.0"]]
+         :plugins [[cider/cider-nrepl "0.27.4"]
+                   [refactor-nrepl "3.1.0"]
+                   [mx.cider/enrich-classpath "1.5.2"]]
+         :middleware [cider.enrich-classpath/middleware]}
  :wait-debugger {:jvm-opts ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"
                             "-Djava.rmi.server.hostname=127.0.0.1"]}
  :clojars-release {:deploy-repositories [["releases" {:url "https://clojars.org/repo/"
@@ -36,7 +39,7 @@
           :injections [(require 'nrebl.middleware) (require '[cognitect.rebl :as rebl])]}
  :hashp {:dependencies [[hashp "0.2.1"]]
          :injections [(require 'hashp.core)]}
- :portal {:dependencies [[djblue/portal "0.7.0"]]}
+ :portal {:dependencies [[djblue/portal "0.20.0"]]}
  :nightlight {:plugins [[nightlight/lein-nightlight "RELEASE"]]}
  :no-gpg {:deploy-repositories {"clojars" {:sign-releases false}}}
  :user [:shared :global-opts :jvm-opts :injected-tools :hashp :cider]}

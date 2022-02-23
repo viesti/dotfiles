@@ -1,6 +1,7 @@
 ;;; Emacs --- .emacs
 ;;; Commentary:
 ;;; Emacs configuration
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (require 'package)
 ;;; Code:
 (add-to-list 'package-archives
@@ -51,7 +52,7 @@
    '("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" default))
  '(european-calendar-style t)
  '(fill-column 120)
- '(flycheck-disabled-checkers '(javascript-jshint))
+ '(flycheck-disabled-checkers '(javascript-jshint sh-bash))
  '(ggtags-global-abbreviate-filename nil)
  '(global-auto-revert-mode t)
  '(global-font-lock-mode t nil (font-lock))
@@ -59,6 +60,7 @@
  '(idle-highlight-idle-time 0.1)
  '(ido-enable-flex-matching t)
  '(ido-use-faces nil)
+ '(ido-use-filename-at-point 'guess)
  '(indent-tabs-mode nil)
  '(inferior-js-program-command "/usr/local/bin/phantomjs")
  '(inferior-lisp-program "sbcl")
@@ -73,7 +75,7 @@
  '(large-file-warning-threshold nil)
  '(lsp-eldoc-enable-hover nil)
  '(lsp-file-watch-ignored-directories
-   '("[/\\\\]\\.git\\'" "[/\\\\]\\.hg\\'" "[/\\\\]\\.bzr\\'" "[/\\\\]_darcs\\'" "[/\\\\]\\.svn\\'" "[/\\\\]_FOSSIL_\\'" "[/\\\\]\\.idea\\'" "[/\\\\]\\.ensime_cache\\'" "[/\\\\]\\.eunit\\'" "[/\\\\]node_modules" "[/\\\\]\\.fslckout\\'" "[/\\\\]\\.tox\\'" "[/\\\\]dist\\'" "[/\\\\]dist-newstyle\\'" "[/\\\\]\\.stack-work\\'" "[/\\\\]\\.bloop\\'" "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.deps\\'" "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'" "[/\\\\]target\\'" "[/\\\\]\\.clj-kondo\\'" "[/\\\\]\\.shadow-cljs\\'"))
+   '("[/\\\\]\\.git\\'" "[/\\\\]\\.hg\\'" "[/\\\\]\\.bzr\\'" "[/\\\\]_darcs\\'" "[/\\\\]\\.svn\\'" "[/\\\\]_FOSSIL_\\'" "[/\\\\]\\.idea\\'" "[/\\\\]\\.ensime_cache\\'" "[/\\\\]\\.eunit\\'" "[/\\\\]node_modules" "[/\\\\]\\.fslckout\\'" "[/\\\\]\\.tox\\'" "[/\\\\]dist\\'" "[/\\\\]dist-newstyle\\'" "[/\\\\]\\.stack-work\\'" "[/\\\\]\\.bloop\\'" "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.deps\\'" "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'" "[/\\\\]target\\'" "[/\\\\]\\.clj-kondo\\'" "[/\\\\]\\.shadow-cljs\\'" "[/\\\\]\\.npm-cache\\'" "[/\\\\]\\.cljs_node_repl\\'" "[/\\\\]\\.terraform\\'"))
  '(lsp-headerline-breadcrumb-enable nil)
  '(lsp-lens-enable nil)
  '(lsp-ui-doc-enable nil)
@@ -97,7 +99,7 @@
  '(ns-right-command-modifier 'left)
  '(number-of-diary-entries 3)
  '(package-selected-packages
-   '(ivy counsel sqlformat lsp-ivy inf-clojure amx treemacs imenu-anywhere zprint-mode jdecomp clj-decompiler clojure-essential-ref vega-view anakondo company-terraform csv-mode projectile-ripgrep floobits rjsx-mode flymake-eslint flycheck-grammarly flycheck-plantuml plantuml-mode go-mode browse-at-remote js-doc docker sqlup-mode format-sql dired-sidebar use-package add-node-modules-path ansible-vault adoc-mode reveal-in-osx-finder xref-js2 default-text-scale magit-imerge calfw-ical docker-tramp dockerfile-mode ess dash-at-point graphviz-dot-mode groovy-mode which-key terraform-mode yasnippet wgrep starter-kit spinner smex scala-mode sbt-mode s python-environment popwin popup pkg-info peg paredit nose multiple-cursors magit-popup json-snatcher json-reformat js2-mode jedi-core jedi idle-highlight-mode hydra helm-core helm git-gutter fringe-helper flymake-easy flx find-file-in-project es-windows es-lib epl epc elisp-slime-nav edn direx deferred ctable concurrent company color-theme auto-complete yaml-mode writegood-mode wgrep-ag web-beautify starter-kit-lisp starter-kit-eshell starter-kit-bindings sr-speedbar smartparens slamhound request rainbow-delimiters project-explorer php-mode occur-context-resize nose-mode nlinum nginx-mode newlisp-mode mo-git-blame midje-mode markdown-mode magit-find-file levenshtein less-css-mode latest-clojure-libraries jump-char json-mode js2-refactor js2-closure js-comint jedi-direx javap-mode iedit hy-mode highlight-symbol highlight-parentheses highlight helm-cmd-t guile-scheme gtags gitconfig git-gutter-fringe ggtags free-keys flymake-json flymake-jshint flx-ido find-file-in-repository exec-path-from-shell eval-sexp-fu etags-table etags-select epoch-view ensime cycbuf command-t color-theme-solarized color-theme-github clojurescript-mode cljdoc cedit buffer-move anyins ace-jump-mode ac-ispell))
+   '(moom kaocha-runner lsp-docker lsp-java counsel sqlformat inf-clojure amx treemacs imenu-anywhere zprint-mode jdecomp clj-decompiler clojure-essential-ref vega-view anakondo company-terraform csv-mode projectile-ripgrep floobits rjsx-mode flymake-eslint flycheck-grammarly flycheck-plantuml plantuml-mode go-mode browse-at-remote js-doc docker sqlup-mode format-sql dired-sidebar use-package add-node-modules-path ansible-vault adoc-mode reveal-in-osx-finder xref-js2 default-text-scale magit-imerge calfw-ical docker-tramp dockerfile-mode ess dash-at-point graphviz-dot-mode groovy-mode which-key terraform-mode yasnippet wgrep starter-kit spinner smex scala-mode sbt-mode s python-environment popwin popup pkg-info peg paredit nose multiple-cursors magit-popup json-snatcher json-reformat js2-mode jedi-core jedi idle-highlight-mode hydra helm-core helm git-gutter fringe-helper flymake-easy flx find-file-in-project es-windows es-lib epl epc elisp-slime-nav edn direx deferred ctable concurrent company color-theme auto-complete yaml-mode writegood-mode wgrep-ag web-beautify starter-kit-lisp starter-kit-eshell starter-kit-bindings sr-speedbar smartparens slamhound request rainbow-delimiters project-explorer php-mode occur-context-resize nose-mode nlinum nginx-mode newlisp-mode mo-git-blame midje-mode markdown-mode magit-find-file levenshtein less-css-mode latest-clojure-libraries jump-char json-mode js2-refactor js2-closure js-comint jedi-direx javap-mode iedit hy-mode highlight-symbol highlight-parentheses highlight helm-cmd-t guile-scheme gtags gitconfig git-gutter-fringe ggtags free-keys flymake-json flymake-jshint flx-ido find-file-in-repository exec-path-from-shell eval-sexp-fu etags-table etags-select epoch-view ensime cycbuf command-t color-theme-solarized color-theme-github clojurescript-mode cljdoc cedit buffer-move anyins ace-jump-mode ac-ispell))
  '(python-shell-interpreter "python")
  '(ring-bell-function 'ignore)
  '(safe-local-variable-values
@@ -515,9 +517,19 @@
                             (with-current-buffer (cider-current-repl-buffer)
                               (cider-interactive-eval
                                "(integrant.repl/reset)")))))
-      (define-key cider-mode-map (kbd "C-'") reloaded-reset)
-      (define-key clojure-mode-map (kbd "C-'") reloaded-reset)))
+       (setq cider-enrich-classpath t)
+       (define-key cider-mode-map (kbd "C-'") reloaded-reset)
+       (define-key clojure-mode-map (kbd "C-'") reloaded-reset)))
 
+  (use-package kaocha-runner
+    :init
+    (bind-keys :prefix-map ar-emacs-kaocha-prefix-map
+               :prefix "C-c k"
+               ("t" . kaocha-runner-run-test-at-point)
+               ("r" . kaocha-runner-run-tests)
+               ("a" . kaocha-runner-run-all-tests)
+               ("w" . kaocha-runner-show-warnings)
+               ("h" . kaocha-runner-hide-windows)))
 
   (use-package lsp-mode
     :ensure t
@@ -538,7 +550,14 @@
     (setq gc-cons-threshold 100000000
           lsp-enable-indentation nil)
     ;; 1mb
-    (setq read-process-output-max (* 1024 1024)))
+    (setq read-process-output-max (* 1024 1024))
+
+    (lsp-register-client
+     (make-lsp-client :new-connection (lsp-stdio-connection '("/usr/local/bin/terraform-ls" "serve"))
+                      :major-modes '(terraform-mode)
+                      :server-id 'terraform-ls))
+    (add-hook 'terraform-mode-hook #'lsp)
+    )
 
   (use-package lsp-ui
     :ensure t
@@ -595,6 +614,7 @@
 ;;(load-file ".emacs.d/emacs-vega-view/vega-view.el")
 ;;(add-to-list 'load-path "~/.emacs.d/lisp/emacs-vega-view")
 (add-to-list 'load-path "~/.emacs.d/lisp/csv-mode-1.12")
+(add-to-list 'load-path "~/.emacs.d/lisp/cljstyle-mode")
 
 (customize-set-variable 'jdecomp-decompiler-paths
                         '((fernflower . "~/bin/fernflower.jar")))
@@ -625,7 +645,16 @@
   (if (getenv "TMUX")
       (let ((map (copy-keymap xterm-function-map)))
         (set-keymap-parent map (keymap-parent input-decode-map))
-        (set-keymap-parent input-decode-map map))))
+        (set-keymap-parent input-decode-map map)
+        (define-key map "^[[A"  (kbd "<s-up>")))))
+
+ ;; TERMINAL MAPPINGS TO SUPPORT ITERM2 FOR MAC
+(progn
+  (let ((map (if (boundp 'input-decode-map)
+                 input-decode-map
+               function-key-map)))
+    (define-key map "\e^[[A"  (kbd "<s-up>"))))
+
 
 ;; sqlformat
 (setq sqlformat-command 'pgformatter)
@@ -636,7 +665,7 @@
 ;;                   :major-modes '(terraform-mode)
 ;;                   :server-id 'terraform-ls))
 
-(add-hook 'terraform-mode-hook #'lsp)
+;; (add-hook 'terraform-mode-hook #'lsp)
 
 ;;(setq ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected)
 (setq ivy-use-selectable-prompt t)
@@ -654,10 +683,25 @@
 (defun nomis/lsp-eldoc ()
   ;; Don't blat signatures from CIDER.
   (unless (ignore-errors (cider-repls))
-    (lsp-hover)))
+    (lsp-hover))
+  )
 
 (setq lsp-eldoc-hook '(nomis/lsp-eldoc))
+;; Does not work to disable lsp eldoc competing with cider eldoc
+;; (setq lsp-enable-xref t)
 
+;; Grammarly lsp support on markdown buffers
+(with-eval-after-load 'lsp-mode
+  (add-to-list 'lsp-language-id-configuration
+               '(markdown-mode . "grammarly"))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("unofficial-grammarly-language-server" "--stdio"))
+                    :activation-fn (lsp-activate-on "grammarly")
+                    :server-id 'grammarly)))
+
+(with-eval-after-load "moom"
+  ;; add settings here ...
+  (moom-mode 1))
 
 (provide 'emacs)
 ;;; .emacs ends here

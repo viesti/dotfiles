@@ -6,7 +6,7 @@ HISTSIZE=1000
 HISTFILE=~/.zsh/.history
 
 # make nicer prompt
-export PROMPT='%n@%m %~$(git_super_status) $AWS_PROFILE $AWS_DEFAULT_REGION
+export PROMPT='%n@%m %~$(git_super_status) $AWSUME_PROFILE $AWS_DEFAULT_REGION
 %j%# '
 RPROMPT=''
 
