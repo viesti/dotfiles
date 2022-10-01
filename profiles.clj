@@ -19,9 +19,9 @@
  :jvm-opts {:jvm-opts [;; Keep stacktraces
                        "-XX:-OmitStackTraceInFastThrow"]}
  :cider {:dependencies [[nrepl/nrepl "0.9.0"]]
-         :plugins [[cider/cider-nrepl "0.27.4"]
-                   [refactor-nrepl "3.1.0"]
-                   [mx.cider/enrich-classpath "1.5.2"]]
+         :plugins [[cider/cider-nrepl "0.28.5"]
+                   [refactor-nrepl "3.5.2"]
+                   [mx.cider/enrich-classpath "1.9.0"]]
          :middleware [cider.enrich-classpath/middleware]}
  :wait-debugger {:jvm-opts ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"
                             "-Djava.rmi.server.hostname=127.0.0.1"]}
@@ -39,7 +39,7 @@
           :injections [(require 'nrebl.middleware) (require '[cognitect.rebl :as rebl])]}
  :hashp {:dependencies [[hashp "0.2.1"]]
          :injections [(require 'hashp.core)]}
- :portal {:dependencies [[djblue/portal "0.20.0"]]}
+ :portal {:dependencies [[djblue/portal "0.23.0"]]}
  :nightlight {:plugins [[nightlight/lein-nightlight "RELEASE"]]}
  :no-gpg {:deploy-repositories {"clojars" {:sign-releases false}}}
- :user [:shared :global-opts :jvm-opts :injected-tools :hashp :cider]}
+ :user [:shared :global-opts :jvm-opts :injected-tools :hashp :cider :portal]}
