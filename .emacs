@@ -4,8 +4,8 @@
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (require 'package)
 ;;; Code:
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+;; (add-to-list 'package-archives
+;;              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives
@@ -90,6 +90,7 @@
  '(magit-use-overlays t)
  '(mark-diary-entries-in-calendar t)
  '(mc/always-repeat-command t)
+ '(moom-use-font-module nil)
  '(mouse-drag-copy-region t)
  '(mouse-wheel-mode t nil (mwheel))
  '(mouse-wheel-progressive-speed nil)
@@ -99,7 +100,7 @@
  '(ns-right-command-modifier 'left)
  '(number-of-diary-entries 3)
  '(package-selected-packages
-   '(moom kaocha-runner lsp-docker lsp-java counsel sqlformat inf-clojure amx treemacs imenu-anywhere zprint-mode jdecomp clj-decompiler clojure-essential-ref vega-view anakondo company-terraform csv-mode projectile-ripgrep floobits rjsx-mode flymake-eslint flycheck-grammarly flycheck-plantuml plantuml-mode go-mode browse-at-remote js-doc docker sqlup-mode format-sql dired-sidebar use-package add-node-modules-path ansible-vault adoc-mode reveal-in-osx-finder xref-js2 default-text-scale magit-imerge calfw-ical docker-tramp dockerfile-mode ess dash-at-point graphviz-dot-mode groovy-mode which-key terraform-mode yasnippet wgrep starter-kit spinner smex scala-mode sbt-mode s python-environment popwin popup pkg-info peg paredit nose multiple-cursors magit-popup json-snatcher json-reformat js2-mode jedi-core jedi idle-highlight-mode hydra helm-core helm git-gutter fringe-helper flymake-easy flx find-file-in-project es-windows es-lib epl epc elisp-slime-nav edn direx deferred ctable concurrent company color-theme auto-complete yaml-mode writegood-mode wgrep-ag web-beautify starter-kit-lisp starter-kit-eshell starter-kit-bindings sr-speedbar smartparens slamhound request rainbow-delimiters project-explorer php-mode occur-context-resize nose-mode nlinum nginx-mode newlisp-mode mo-git-blame midje-mode markdown-mode magit-find-file levenshtein less-css-mode latest-clojure-libraries jump-char json-mode js2-refactor js2-closure js-comint jedi-direx javap-mode iedit hy-mode highlight-symbol highlight-parentheses highlight helm-cmd-t guile-scheme gtags gitconfig git-gutter-fringe ggtags free-keys flymake-json flymake-jshint flx-ido find-file-in-repository exec-path-from-shell eval-sexp-fu etags-table etags-select epoch-view ensime cycbuf command-t color-theme-solarized color-theme-github clojurescript-mode cljdoc cedit buffer-move anyins ace-jump-mode ac-ispell))
+   '(lsp-mode lsp-ui typescript-mode flymake-hadolint a docker-compose-mode flx-isearch keytar moom sqlformat inf-clojure treemacs zprint-mode csv-mode flycheck-plantuml go-mode js-doc docker dired-sidebar calfw-ical dockerfile-mode ess dash-at-point graphviz-dot-mode groovy-mode which-key starter-kit smex python-environment pkg-info peg paredit nose multiple-cursors json-reformat js2-mode idle-highlight-mode helm-core helm git-gutter fringe-helper flymake-easy es-windows es-lib epl epc edn direx deferred concurrent color-theme writegood-mode web-beautify starter-kit-lisp starter-kit-eshell starter-kit-bindings sr-speedbar smartparens slamhound request project-explorer php-mode nose-mode nlinum nginx-mode newlisp-mode mo-git-blame midje-mode markdown-mode magit-find-file levenshtein less-css-mode latest-clojure-libraries jump-char js2-closure jedi-direx javap-mode highlight-symbol highlight-parentheses helm-cmd-t guile-scheme gtags gitconfig ggtags flymake-json flymake-jshint flx-ido etags-table etags-select epoch-view ensime cycbuf command-t color-theme-solarized color-theme-github clojurescript-mode cljdoc buffer-move anyins ace-jump-mode ac-ispell))
  '(python-shell-interpreter "python")
  '(ring-bell-function 'ignore)
  '(safe-local-variable-values
@@ -420,7 +421,7 @@
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-envs '("JAVA_HOME" "LANG" "LC_ALL"))
-  (set-frame-font "Menlo 13" nil t))
+  (set-frame-font "-*-Menlo-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1" nil t))
 (when window-system
   (load-theme 'deeper-blue t))
 
@@ -546,16 +547,19 @@
                  clojurescript-mode
                  clojurex-mode))
       (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
+    ;;(local-set-key (kbd "C-<up>") 'lsp-ui-find-prev-reference)
+    ;;(local-set-key (kbd "C-<down>") 'lsp-ui-find-next-reference)
     ;;(setq lsp-clojure-server-command '("bash" "-c" "clojure-lsp"))
     (setq gc-cons-threshold 100000000
           lsp-enable-indentation nil)
     ;; 1mb
     (setq read-process-output-max (* 1024 1024))
 
-    (lsp-register-client
-     (make-lsp-client :new-connection (lsp-stdio-connection '("/usr/local/bin/terraform-ls" "serve"))
-                      :major-modes '(terraform-mode)
-                      :server-id 'terraform-ls))
+    ;; (lsp-register-client
+    ;;  (make-lsp-client :new-connection (lsp-stdio-connection '("terraform-ls" "serve" "-log-file=/tmp/terraform-ls-{{pid}}.log"))
+    ;;                   :major-modes '(terraform-mode)
+    ;;                   :server-id 'terraform-ls))
+
     (add-hook 'terraform-mode-hook #'lsp)
     )
 
@@ -660,12 +664,7 @@
 (setq sqlformat-command 'pgformatter)
 (setq sqlformat-args '("-s2" "-g" "-L"))
 
-;; (lsp-register-client
-;;  (make-lsp-client :new-connection (lsp-stdio-connection '("/usr/local/bin/terraform-ls" "serve"))
-;;                   :major-modes '(terraform-mode)
-;;                   :server-id 'terraform-ls))
-
-;; (add-hook 'terraform-mode-hook #'lsp)
+(add-hook 'terraform-mode-hook #'lsp)
 
 ;;(setq ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected)
 (setq ivy-use-selectable-prompt t)
@@ -697,11 +696,24 @@
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection '("unofficial-grammarly-language-server" "--stdio"))
                     :activation-fn (lsp-activate-on "grammarly")
-                    :server-id 'grammarly)))
+                    :server-id 'grammarly))
+
+  ;; (lsp-register-client
+  ;;  (make-lsp-client :new-connection (lsp-stdio-connection '("terraform-ls" "serve" "-log-file=/tmp/terraform-ls-{{pid}}.log"))
+  ;;                   :major-modes '(terraform-mode)
+  ;;                   :server-id 'terraform-ls))
+
+  )
 
 (with-eval-after-load "moom"
   ;; add settings here ...
   (moom-mode 1))
+
+(add-hook 'dockerfile-mode-hook (lambda ()
+                                  (flymake-mode t)))
+(add-hook 'dockerfile-mode-hook #'flymake-hadolint-setup)
+
+(setq lsp-disabled-clients '(tfls))
 
 (provide 'emacs)
 ;;; .emacs ends here
