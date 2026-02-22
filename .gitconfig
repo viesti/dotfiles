@@ -11,8 +11,8 @@
   rbc = rebase --continue
 [core]
 	editor = emacsclient
-	excludesfile = /Users/kimmoko/.gitignore_global
-	attributesfile = /Users/kimmoko/.gitattributes
+	excludesfile = ~/.gitignore_global
+	attributesfile = ~/.gitattributes
 [push]
 	default = simple
 [credential]
@@ -20,17 +20,18 @@
 [branch]
 	autosetuprebase = always
 [filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
 [init]
-	defaultBranch = main
+  defaultBranch = main
 [diff]
   tool = difftastic
+  colorMoved = default
 [diff "clojure"]
 	xfuncname = (^\\(.*|\\s*\\(defn.*)
 [difftool]
   prompt = false
 [difftool "difftastic"]
-  cmd = difftastic "$LOCAL" "$REMOTE"
+  cmd = difft "$LOCAL" "$REMOTE"

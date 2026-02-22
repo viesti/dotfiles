@@ -14,12 +14,17 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(amx-mode t)
+ '(auto-revert-avoid-polling t)
+ '(auto-revert-interval 3)
  '(blink-cursor-mode nil)
  '(cider-enrich-classpath t)
  '(cider-font-lock-dynamically '(macro function var deprecated core))
+ '(cider-repl-history-file 'per-project)
+ '(cider-repl-history-size 1000)
  '(cider-show-error-buffer 'except-in-repl)
  '(cider-use-tooltips nil)
- '(clojure-indent-style 'always-align)
+ '(clojure-indent-keyword-style 'align-arguments)
+ '(clojure-indent-style 'align-arguments)
  '(column-number-mode t)
  '(confirm-nonexistent-file-or-buffer nil)
  '(custom-enabled-themes '(deeper-blue))
@@ -27,6 +32,8 @@
  '(electric-pair-mode t)
  '(fill-column 120)
  '(flx-ido-mode t)
+ '(global-auto-revert-mode t)
+ '(gptel-use-curl "/opt/homebrew/opt/curl/bin/curl")
  '(ido-create-new-buffer 'always)
  '(ido-enable-flex-matching t)
  '(ido-everywhere t)
@@ -53,10 +60,11 @@
  '(ns-right-alternate-modifier 'meta)
  '(ns-right-command-modifier 'left)
  '(package-selected-packages
-   '(amx anakondo browse-at-remote cider clojure-mode clojure-ts-mode company-terraform deadgrep dockerfile-mode dumb-jump
-         exec-path-from-shell expand-region find-file-in-repository flx-ido flycheck-tip flymake-hadolint
-         git-gutter-fringe highlight-parentheses highlight-symbol ido-completing-read+ iedit lsp-mode magit
-         multiple-cursors paredit rainbow-delimiters sqlformat terraform-mode yaml-mode))
+   '(0blayout amx anakondo ansible browse-at-remote clay clojure-mode clojure-ts-mode colorful-mode company-terraform ct
+              deadgrep dockerfile-mode dumb-jump exec-path-from-shell expand-region find-file-in-repository flx-ido
+              flycheck-tip flymake-hadolint git-gutter-fringe gptel gptel-magit highlight-parentheses highlight-symbol
+              ido-completing-read+ iedit jinja2-mode magit multiple-cursors paredit rainbow-delimiters sqlformat
+              swift-mode terraform-mode treesit-fold uniline wgrep wgrep-deadgrep yaml-mode))
  '(ring-bell-function 'ignore)
  '(safe-local-variable-directories '("/Users/kmkoskin/work/proj-endor/backend/"))
  '(safe-local-variable-values
@@ -64,6 +72,7 @@
       ("bb run fmt:fix" "bb run lint:kondo" "bb run lint:splint" "bb run lint:eastwood" "bb run outdated"
        "bb run poly:test"))
      (cider-shadow-cljs-default-options . "app")))
+ '(sh-basic-offset 2)
  '(show-trailing-whitespace t)
  '(tab-width 2)
  '(tool-bar-mode nil))
@@ -186,7 +195,6 @@
 (use-package terraform-mode
   :ensure t
   :config
-  (add-hook 'terraform-mode-hook 'display-line-numbers-mode)
   (add-hook 'terraform-mode-hook 'company-mode))
 (add-hook 'terraform-mode-hook #'lsp)
 
@@ -252,9 +260,12 @@
    (match 'defun)
    ;; others
    (with-additional-middleware 'defun)
-   (fn-traced :defn))
-  (dolist (mode '(display-line-numbers-mode
-                  enable-paredit-mode
+   (fn-traced :defn)
+   (rf/reg-event-fx 'defun)
+   (rf/reg-event-db 'defun)
+   (rf/reg-fx 'defun)
+   (rf/reg-sub 'defun))
+  (dolist (mode '(enable-paredit-mode
                   highlight-parentheses-mode
                   rainbow-delimiters-mode))
     (add-hook 'clojure-mode-hook mode)
@@ -306,3 +317,112 @@
                clojurex-mode))
     (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
   (add-hook 'terraform-mode-hook #'lsp))
+
+(setq gptel-model 'claude-sonnet-4-20250514
+      gptel-backend
+      (gptel-make-bedrock "AWS"
+        :stream t
+        :region "eu-west-1"
+        ;; subset of gptel--bedrock-models
+        :models '(claude-sonnet-4-20250514)
+        ;; Model region for cross-region inference profiles. Required for models such
+        ;; as Claude without on-demand throughput support. One of 'apac, 'eu or 'us.
+        ;; https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles-use.html
+        :model-region 'eu))
+
+(use-package clay)
+
+(defun json->edn ()
+  "Convert the selected region, or entire file, from JSON to EDN."
+  (interactive)
+  (let ((b (if mark-active (region-beginning) (point-min)))
+        (e (if mark-active (region-end) (point-max)))
+        (jet (when (executable-find "jet")
+               "jet --pretty --keywordize keyword --from json --to edn")))
+    (if jet
+      (let ((p (point)))
+        (shell-command-on-region b e jet (current-buffer) t)
+        (goto-char p))
+      (user-error "Could not find jet installed"))))
+
+(global-display-line-numbers-mode)
+
+'(setq treesit-language-source-alist
+      '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2" "typescript/src")
+        (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2" "tsx/src")))
+
+;; Needs straight.el, doesn't work without it
+;; (use-package treesit-fold
+;;   :straight (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold"))
+
+'(use-package treesit
+  :mode (("\\.ts\\'" . typescript-ts-mode)))
+
+'(treesit-language-available-p 'js)
+
+
+(use-package treesit
+  :mode (("\\.tsx\\'" . tsx-ts-mode)
+         ("\\.js\\'"  . typescript-ts-mode)
+         ("\\.mjs\\'" . typescript-ts-mode)
+         ("\\.mts\\'" . typescript-ts-mode)
+         ("\\.cjs\\'" . typescript-ts-mode)
+         ("\\.ts\\'"  . typescript-ts-mode)
+         ("\\.jsx\\'" . tsx-ts-mode)
+         ("\\.json\\'" .  json-ts-mode)
+         ("\\.Dockerfile\\'" . dockerfile-ts-mode)
+         ;; More modes defined here...
+         )
+  :preface
+  (defun os/setup-install-grammars ()
+    "Install Tree-sitter grammars if they are absent."
+    (interactive)
+    (dolist (grammar
+             '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.25.0"))
+               (bash . ("https://github.com/tree-sitter/tree-sitter-bash" "v0.25.1"))
+               (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.23.2"))
+               (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.25.0" "src"))
+               (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.24.8"))
+               (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.25.0"))
+               (go "https://github.com/tree-sitter/tree-sitter-go" "v0.25.0")
+               (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+               (make "https://github.com/alemuller/tree-sitter-make")
+               (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+               (cmake "https://github.com/uyha/tree-sitter-cmake")
+               (c . ("https://github.com/tree-sitter/tree-sitter-c" "v0.24.1"))
+               (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp" "v0.23.4"))
+               (toml "https://github.com/tree-sitter/tree-sitter-toml")
+               (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2" "tsx/src"))
+               (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2" "typescript/src"))
+               (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
+      (add-to-list 'treesit-language-source-alist grammar)
+      ;; Only install `grammar' if we don't already have it
+      ;; installed. However, if you want to *update* a grammar then
+      ;; this obviously prevents that from happening.
+      (unless (treesit-language-available-p (car grammar))
+        (treesit-install-language-grammar (car grammar)))))
+
+  ;; Optional, but recommended. Tree-sitter enabled major modes are
+  ;; distinct from their ordinary counterparts.
+  ;;
+  ;; You can remap major modes with `major-mode-remap-alist'. Note
+  ;; that this does *not* extend to hooks! Make sure you migrate them
+  ;; also
+  '(dolist (mapping
+            '((python-mode . python-ts-mode)
+              (css-mode . css-ts-mode)
+              (typescript-mode . typescript-ts-mode)
+              (js-mode . typescript-ts-mode)
+              (js2-mode . typescript-ts-mode)
+              (c-mode . c-ts-mode)
+              (c++-mode . c++-ts-mode)
+              (c-or-c++-mode . c-or-c++-ts-mode)
+              (bash-mode . bash-ts-mode)
+              (css-mode . css-ts-mode)
+              (json-mode . json-ts-mode)
+              (js-json-mode . json-ts-mode)
+              (sh-mode . bash-ts-mode)
+              (sh-base-mode . bash-ts-mode)))
+     (add-to-list 'major-mode-remap-alist mapping))
+  :config
+  (os/setup-install-grammars))

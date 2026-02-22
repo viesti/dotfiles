@@ -1,12 +1,9 @@
 # sh style word splitting
-setopt SH_WORD_SPLIT INC_APPEND_HISTORY
-
-SAVEHIST=1000
-HISTSIZE=1000
-HISTFILE=~/.zsh/.history
+setopt SH_WORD_SPLIT
 
 # make nicer prompt
-export PROMPT='%n@%m %~$(git_super_status) $AWSUME_PROFILE $AWS_DEFAULT_REGION
+# export PROMPT='%n@%m %~$(git_super_status) $AWSUME_PROFILE $AWS_DEFAULT_REGION
+export PROMPT='%F{green}%n@%m %~%f$(git_super_status)
 %j%# '
 RPROMPT=''
 
@@ -46,6 +43,7 @@ alias tigu='tig HEAD@{u}..'
 alias tiga='tig ..@{u}'
 alias lein-debug='JVM_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=${debug_port:-5005} lein'
 alias top='top -F -R -o cpu'
+alias awsume=". awsume"
 
 export BREAK_CHARS="\"#'(),;\`\\|"
 alias sbcl="rlwrap -b \$BREAK_CHARS sbcl"
@@ -53,32 +51,12 @@ alias sbcl="rlwrap -b \$BREAK_CHARS sbcl"
 export SVN_EDITOR=emacs
 
 export LC_CTYPE="en_US.UTF-8"
-#export LEIN_FAST_TRAMPOLINE=y
-alias cljsbuild="lein trampoline cljsbuild $@"
-
-#export ANDROID_HOME=/usr/local/opt/android-sdk
-#ANDROID_NDK=/usr/local/Cellar/android-ndk/r10e
-#export ANDROID_HOME=/usr/local/opt/android-sdk
 
 export EDITOR=emacsclient
 
-export NVM_DIR="/Users/kimmoko/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-#source ~/programming/git-subrepo/.rc
-
-export LEIN_USE_BOOTCLASSPATH=y
-
 export ZSH_THEME_GIT_PROMPT_PREFIX='%{%}(%{%}'
-
-#alias jdk8='export JAVA_HOME=`/usr/libexec/java_home -v 1.8`'
-
-if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/kimmoko/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/kimmoko/google-cloud-sdk/completion.zsh.inc'; fi
 
 # Git blaming utility
 ggb() {
@@ -90,17 +68,6 @@ autoload bashcompinit
 bashcompinit
 complete -C '/usr/local/bin/aws_completer' aws
 
-# Groovy
-export GROOVY_HOME=/usr/local/opt/groovy/libexec
-
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-alias awsume=". awsume"
-
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
-
-#if [[ -r "/usr/local/opt/mcfly/mcfly.zsh" ]]; then
-#  source "/usr/local/opt/mcfly/mcfly.zsh"
-#fi
