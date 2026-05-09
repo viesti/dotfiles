@@ -1,0 +1,83 @@
+{:paths ["src"]
+ :deps {org.clojure/clojure {:mvn/version "1.12.4"}}
+ :aliases {:user/xforms {:extra-deps {net.cgrand/xforms {:mvn/version "0.19.6"}}}
+
+           :user/stacktracer {:extra-deps {athos/stacktracer {:git/url "git@github.com:athos/stacktracer.git"
+                                                              :sha "9fdd39d1215f72ffa1d64b3c87dcc3f130fcc073"}}}
+
+           :user/eximia {:extra-deps {com.deepbeginnings/eximia {:mvn/version "0.1.3"}}}
+
+           :user/data.xml {:extra-deps {org.clojure/data.xml {:mvn/version "0.0.8"}}}
+
+           :user/data.zip {:extra-deps {org.clojure/data.zip {:mvn/version "1.1.1"}}}
+
+           :user/contajners {:extra-deps {org.clojars.lispyclouds/contajners {:mvn/version "1.0.7"}}}
+
+           :user/playwright {:extra-deps {com.microsoft.playwright/playwright {:mvn/version "1.57.0"}}}
+
+           :user/html-to-hiccup {:extra-deps {taipei.404/html-to-hiccup {:mvn/version "0.1.8"}}}
+
+           :user/jsonista {:extra-deps {metosin/jsonista {:mvn/version "0.3.13"}}}
+
+           :user/clj-http {:extra-deps {clj-http/clj-http {:mvn/version "3.13.1"}}}
+
+
+           :user/repl
+           {:extra-deps {nrepl/nrepl {:mvn/version "1.6.0-alpha2"}
+                         cider/cider-nrepl {:mvn/version "0.58.0"}
+
+                         com.bhauman/rebel-readline    {:mvn/version "0.1.5"}
+
+                         hashp/hashp {:mvn/version "0.2.2"}
+                         djblue/portal {:mvn/version "0.62.1"}
+
+                         org.postgresql/postgresql {:mvn/version "42.7.8"}
+                         com.github.seancorfield/next.jdbc {:mvn/version "1.3.1086"}
+
+                         metosin/jsonista {:mvn/version "0.3.13"}
+                         clj-http/clj-http {:mvn/version "3.13.1"}
+
+                         org.clojure/data.csv {:mvn/version "1.1.1"}
+                         metosin/malli {:mvn/version "0.20.0"}
+
+                         org.scicloj/clay {:mvn/version "RELEASE"}
+
+                         #_#_org.clj-commons/hickory {:mvn/version "0.7.4"}
+
+                         com.clojure-goes-fast/clj-async-profiler {:mvn/version "2.0.0-beta1" #_"1.6.2"}}
+            :main-opts  ["-m" "nrepl.cmdline"
+                         "--middleware" "[cider.nrepl/cider-middleware]"
+                         #_#_"--socket" "/Users/kimmoko/.nrepl-sock"
+                         "-i"
+                         "-f" "rebel-readline.main/-main"]
+            :jvm-opts ["-XX:-OmitStackTraceInFastThrow"
+                       "-Dclojure.main.report=stderr"
+                       "-XX:+UnlockDiagnosticVMOptions"
+                       "-XX:+DebugNonSafepoints"
+                       "-Djdk.attach.allowAttachSelf"
+                       "--enable-native-access=ALL-UNNAMED"]}
+
+           :user/cljs {:extra-deps {org.clojure/clojurescript {:mvn/version "1.12.134"}}
+                       :main-opts  ["-m" "cljs.main"
+                                    "-p" "9998"
+                                    "--repl"]}
+
+           :user/ml {:extra-deps {scicloj/scicloj.ml {:mvn/version "0.3"}}}
+
+           :user/cider {:extra-deps {cider/cider-nrepl {:mvn/version "0.58.0"}}}
+
+           :nrebel {:extra-deps {com.bhauman/rebel-readline-nrepl {#_#_:git/sha "82c42a8d4617bc625a2dcc1227fe166adeba15ca"
+                                                                   #_#_:git/url "https://github.com/bhauman/rebel-readline.git"
+                                                                   #_#_:deps/root "rebel-readline"
+                                                                   :mvn/version "0.1.6"}}
+                    :exec-fn rebel-readline.nrepl/connect
+                    :exec-args {:background-print false} ;; Optional configuration parameters
+                    :main-opts ["-m" "rebel-readline.nrepl.main"]
+                    :jvm-opts ["-XX:-OmitStackTraceInFastThrow" "-Dclojure.main.report=stderr"]}
+
+           :user/outdated {;; Note that it is `:deps`, not `:extra-deps`
+                           :deps {com.github.liquidz/antq {:mvn/version "2.11.1276"}}
+                           :main-opts ["-m" "antq.core"]}}
+
+ :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
+             "clojars" {:url "https://repo.clojars.org/"}}}
