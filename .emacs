@@ -33,7 +33,6 @@
  '(fill-column 120)
  '(flx-ido-mode t)
  '(global-auto-revert-mode t)
- '(gptel-use-curl "/opt/homebrew/opt/curl/bin/curl")
  '(ido-create-new-buffer 'always)
  '(ido-enable-flex-matching t)
  '(ido-everywhere t)
@@ -65,10 +64,10 @@
  '(package-selected-packages
    '(0blayout amx anakondo ansible auctex browse-at-remote clay clojure-mode clojure-ts-mode colorful-mode
               company-terraform ct deadgrep dockerfile-mode dumb-jump envrc exec-path-from-shell expand-region
-              find-file-in-repository flx-ido flycheck-tip flymake-hadolint git-gutter-fringe gptel gptel-magit
-              grip-mode highlight-parentheses highlight-symbol ido-completing-read+ iedit jinja2-mode lsp-mode lsp-ui
-              magit multiple-cursors paredit rainbow-delimiters sqlformat swift-mode terraform-mode treesit-fold uniline
-              wgrep wgrep-deadgrep yaml-mode))
+              find-file-in-repository flx-ido flycheck-tip flymake-hadolint git-gutter-fringe grip-mode
+              highlight-parentheses highlight-symbol ido-completing-read+ iedit jinja2-mode lsp-mode lsp-ui magit
+              multiple-cursors paredit rainbow-delimiters sqlformat swift-mode terraform-mode treesit-fold uniline wgrep
+              wgrep-deadgrep yaml-mode))
  '(ring-bell-function 'ignore)
  '(safe-local-variable-directories '("/Users/kmkoskin/work/proj-endor/backend/"))
  '(safe-local-variable-values
@@ -320,30 +319,23 @@
                clojurescript-mode
                clojurex-mode))
     (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
-  ;; (add-hook 'terraform-mode-hook #'lsp)
   (eval-after-load 'lsp-ui-mode
     '(progn
        (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
        (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)))
-  ;;(define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-  ;;(define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
-  (global-set-key (kbd "M-+") 'lsp-ui-peek-find-references)
-  ;;(setq lsp-lens-enable t)
-  ;;(setq lsp-ui-doc-enable nil)
+  (global-set-key (kbd "M-+") 'lsp-ui-peek-find-references))
 
-  )
-
-(setq gptel-model 'claude-sonnet-4-20250514
-      gptel-backend
-      (gptel-make-bedrock "AWS"
-        :stream t
-        :region "eu-west-1"
-        ;; subset of gptel--bedrock-models
-        :models '(claude-sonnet-4-20250514)
-        ;; Model region for cross-region inference profiles. Required for models such
-        ;; as Claude without on-demand throughput support. One of 'apac, 'eu or 'us.
-        ;; https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles-use.html
-        :model-region 'eu))
+;; (setq gptel-model 'claude-sonnet-4-20250514
+;;       gptel-backend
+;;       (gptel-make-bedrock "AWS"
+;;         :stream t
+;;         :region "eu-west-1"
+;;         ;; subset of gptel--bedrock-models
+;;         :models '(claude-sonnet-4-20250514)
+;;         ;; Model region for cross-region inference profiles. Required for models such
+;;         ;; as Claude without on-demand throughput support. One of 'apac, 'eu or 'us.
+;;         ;; https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles-use.html
+;;         :model-region 'eu))
 
 (use-package clay)
 
@@ -366,15 +358,10 @@
       '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2" "typescript/src")
         (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2" "tsx/src")))
 
-;; Needs straight.el, doesn't work without it
-;; (use-package treesit-fold
-;;   :straight (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold"))
-
 '(use-package treesit
   :mode (("\\.ts\\'" . typescript-ts-mode)))
 
 '(treesit-language-available-p 'js)
-
 
 '(use-package treesit
       :mode (("\\.tsx\\'" . tsx-ts-mode)
@@ -456,3 +443,50 @@
 
 (use-package envrc
   :hook (after-init . envrc-global-mode))
+
+'(with-eval-after-load 'lsp-mode
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection
+    (lsp-stdio-connection
+     '("sh" "-c" "echo STARTED >> /tmp/clj-lsp.err; docker exec -i -w /root/workspace dct-dev-1 clojure-lsp listen 2>/tmp/clj-lsp.err; echo $? >> /tmp/clj-lsp.err")
+     ;;'("sh" "-c" "exec docker exec -i dct-dev-1 cat >> /tmp/lsp-stdin.log 2>&1")
+     ;;'("sh" "-c" "exec docker exec -i dct-dev-1 sh -c 'exec clojure-lsp listen 2>/tmp/inside-lsp.err'")
+     )
+    :major-modes '(clojure-mode clojurec-mode clojurescript-mode)
+    :server-id 'clojure-lsp-docker
+    :priority -1
+    :uri-handlers (lsp-ht ("file" #'lsp--uri-to-path))
+    :path->uri-fn
+    (lambda (path)
+      (concat "file://"
+              (replace-regexp-in-string
+               "^/Users/kmkoskin/work/proj-toyota/drawing-comparison-tool" "/root/workspace" path)))
+    :uri->path-fn
+    (lambda (uri)
+      (replace-regexp-in-string
+       "^file:///root/workspace" "/Users/kmkoskin/work/proj-toyota/drawing-comparison-tool"
+       (url-unhex-string uri))))))
+
+;; (defvar bootstrap-version)
+;; (let ((bootstrap-file
+;;        (expand-file-name
+;;         "straight/repos/straight.el/bootstrap.el"
+;;         (or (bound-and-true-p straight-base-dir)
+;;             user-emacs-directory)))
+;;       (bootstrap-version 7))
+;;   (unless (file-exists-p bootstrap-file)
+;;     (with-current-buffer
+;;         (url-retrieve-synchronously
+;;          "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+;;          'silent 'inhibit-cookies)
+;;       (goto-char (point-max))
+;;       (eval-print-last-sexp)))
+;;   (load bootstrap-file nil 'nomessage))
+
+;; Needs straight.el, doesn't work without it
+;; (use-package treesit-fold
+;;   :straight (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold"))
+
+(use-package treesit-fold
+  :load-path "/Users/kmkoskin/.emacs.d/treesit-fold")
