@@ -26,12 +26,7 @@
            {:extra-deps {nrepl/nrepl {:mvn/version "1.7.0"}
                          cider/cider-nrepl {:mvn/version "0.59.0"}
 
-                         ;; Disabled for now, see https://github.com/bhauman/rebel-readline/issues/235
-                         ;; use rebel-readline-nrepl
-                         #_#_com.bhauman/rebel-readline    {#_#_:mvn/version "0.1.5"
-                                                            :git/sha "e8f7f39d00c9a71c1e4ee807acbce1bb48c4dd40"
-                                                            :git/url "https://github.com/bhauman/rebel-readline.git"
-                                                            :deps/root "rebel-readline"}
+                         com.bhauman/rebel-readline {:mvn/version "0.1.11"}
 
                          hashp/hashp {:mvn/version "0.2.2"}
                          djblue/portal {:mvn/version "0.64.1"}
@@ -54,9 +49,7 @@
                          "--middleware" "[cider.nrepl/cider-middleware]"
                          #_#_"--socket" "/Users/kimmoko/.nrepl-sock"
                          "-i"
-                         ;; Disabled for now, see https://github.com/bhauman/rebel-readline/issues/235
-                         ;; use rebel-readline-nrepl
-                         #_#_"-f" "rebel-readline.main/-main"]
+                         "-f" "rebel-readline.main/-main"]
             :jvm-opts ["-XX:-OmitStackTraceInFastThrow"
                        "-Dclojure.main.report=stderr"
                        "-XX:+UnlockDiagnosticVMOptions"
@@ -73,10 +66,7 @@
 
            :user/cider {:extra-deps {cider/cider-nrepl {:mvn/version "0.59.0"}}}
 
-           :nrebel {:extra-deps {com.bhauman/rebel-readline-nrepl {#_#_:git/sha "82c42a8d4617bc625a2dcc1227fe166adeba15ca"
-                                                                   #_#_:git/url "https://github.com/bhauman/rebel-readline.git"
-                                                                   #_#_:deps/root "rebel-readline"
-                                                                   :mvn/version "0.1.8"}}
+           :nrebel {:extra-deps {com.bhauman/rebel-readline-nrepl {:mvn/version "0.1.11"}}
                     :exec-fn rebel-readline.nrepl/connect
                     :exec-args {:background-print false} ;; Optional configuration parameters
                     :main-opts ["-m" "rebel-readline.nrepl.main"]

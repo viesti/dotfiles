@@ -63,7 +63,7 @@
  '(ns-right-command-modifier 'left)
  '(package-selected-packages
    '(0blayout amx anakondo ansible auctex browse-at-remote clay clojure-mode clojure-ts-mode colorful-mode
-              company-terraform ct deadgrep dockerfile-mode dumb-jump envrc exec-path-from-shell expand-region
+              company-terraform ct deadgrep dockerfile-mode dumb-jump eca envrc exec-path-from-shell expand-region
               find-file-in-repository flx-ido flycheck-tip flymake-hadolint git-gutter-fringe grip-mode
               highlight-parentheses highlight-symbol ido-completing-read+ iedit jinja2-mode lsp-mode lsp-ui magit
               multiple-cursors paredit rainbow-delimiters sqlformat swift-mode terraform-mode treesit-fold uniline wgrep
@@ -490,3 +490,6 @@
 
 (use-package treesit-fold
   :load-path "/Users/kmkoskin/.emacs.d/treesit-fold")
+
+(use-package eca
+  :vc (:url "https://github.com/editor-code-assistant/eca-emacs" :rev :newest))
