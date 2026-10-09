@@ -1,3 +1,6 @@
+;;; -*- lexical-binding: t -*-
+(setq native-comp-driver-options '("-mmacosx-version-min=27.0"))
+
 (package-initialize)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -50,7 +53,7 @@
      "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.deps\\'"
      "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'"
      "[/\\\\]target\\'" "[/\\\\]\\.clj-kondo\\'" "[/\\\\]\\.shadow-cljs\\'" "[/\\\\]\\.npm-cache\\'"
-     "[/\\\\]\\.cljs_node_repl\\'" "[/\\\\]\\.terraform\\'" "[/\\\\]\\.venv\\'" "[/\\\\]app\\'" "[/\\\\]ios\\'"))
+     "[/\\\\]\\.cljs_node_repl\\'" "[/\\\\]\\.terraform\\'" "[/\\\\]\\.venv\\'" "[/\\\\]app\\'" "[/\\\\]ios\\'" "[/\\\\]target\\'"))
  '(lsp-headerline-breadcrumb-enable nil)
  '(lsp-lens-enable t)
  '(lsp-pylsp-server-command '("basedpyright-langserver" "--stdio"))
@@ -62,7 +65,7 @@
  '(ns-right-alternate-modifier 'meta)
  '(ns-right-command-modifier 'left)
  '(package-selected-packages
-   '(0blayout amx anakondo ansible auctex browse-at-remote clay clojure-mode clojure-ts-mode colorful-mode
+   '(0blayout amx anakondo ansible auctex browse-at-remote cider clay clojure-mode clojure-ts-mode colorful-mode
               company-terraform ct deadgrep dockerfile-mode dumb-jump eca envrc exec-path-from-shell expand-region
               find-file-in-repository flx-ido flycheck-tip flymake-hadolint git-gutter-fringe grip-mode
               highlight-parentheses highlight-symbol ido-completing-read+ iedit jinja2-mode lsp-mode lsp-ui magit
@@ -441,8 +444,8 @@
 ;; (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
 ;; (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
 
-(use-package envrc
-  :hook (after-init . envrc-global-mode))
+;;(use-package envrc
+;;  :hook (after-init . envrc-global-mode))
 
 '(with-eval-after-load 'lsp-mode
   (lsp-register-client
@@ -493,3 +496,5 @@
 
 (use-package eca
   :vc (:url "https://github.com/editor-code-assistant/eca-emacs" :rev :newest))
+
+(add-to-list 'lsp-disabled-clients 'semgrep-ls)
