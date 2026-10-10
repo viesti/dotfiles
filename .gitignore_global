@@ -1,2 +1,6 @@
-.rebel_readline_history
-.cider-history
+**/.rebel_readline_history
+**/.lsp/.cache
+**/.DS_Store
+**/.clj-kondo/.cache
+**/.cider-history
+**/.venv
