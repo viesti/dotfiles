@@ -550,6 +550,12 @@
 
 (use-package treesit-fold
   :load-path "~/.emacs.d/treesit-fold"
+  :hook (clojure-ts-mode . treesit-fold-mode)
+  :config
+  ;; treesit-fold matches major-mode exactly, so derived modes need their own entries
+  (dolist (m '(clojure-ts-clojurescript-mode clojure-ts-clojurec-mode))
+    (add-to-list 'treesit-fold-range-alist
+                 (cons m (alist-get 'clojure-ts-mode treesit-fold-range-alist))))
   :bind
   (:map treesit-fold-mode-map
         ("C-c z <tab>" . treesit-fold-toggle)
