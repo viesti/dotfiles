@@ -559,8 +559,6 @@
         ("C-c z O"   . treesit-fold-open-recursively)
         ("C-c z R"   . treesit-fold-open-all)))
 
-(global-set-key (kbd "C-c z TAB") 'treesit-fold-toggle)
-
 (use-package eca
   :vc (:url "https://github.com/editor-code-assistant/eca-emacs" :rev :newest))
 
