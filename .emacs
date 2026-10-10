@@ -36,6 +36,7 @@
  '(fill-column 120)
  '(flx-ido-mode t)
  '(global-auto-revert-mode t)
+ '(gptel-use-curl "/opt/homebrew/opt/curl/bin/curl")
  '(ido-create-new-buffer 'always)
  '(ido-enable-flex-matching t)
  '(ido-everywhere t)
@@ -53,7 +54,8 @@
      "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.deps\\'"
      "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'"
      "[/\\\\]target\\'" "[/\\\\]\\.clj-kondo\\'" "[/\\\\]\\.shadow-cljs\\'" "[/\\\\]\\.npm-cache\\'"
-     "[/\\\\]\\.cljs_node_repl\\'" "[/\\\\]\\.terraform\\'" "[/\\\\]\\.venv\\'" "[/\\\\]app\\'" "[/\\\\]ios\\'" "[/\\\\]target\\'"))
+     "[/\\\\]\\.cljs_node_repl\\'" "[/\\\\]\\.terraform\\'" "[/\\\\]\\.venv\\'" "[/\\\\]app\\'" "[/\\\\]ios\\'"
+     "[/\\\\]target\\'"))
  '(lsp-headerline-breadcrumb-enable nil)
  '(lsp-lens-enable t)
  '(lsp-pylsp-server-command '("basedpyright-langserver" "--stdio"))
@@ -401,7 +403,8 @@
                    (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
                    (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
                    (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))
-                   (prisma "https://github.com/victorhqc/tree-sitter-prisma")))
+                   (prisma "https://github.com/victorhqc/tree-sitter-prisma")
+                   (zig ("https://github.com/tree-sitter-grammars/tree-sitter-zig" "v1.1.2"))))
           (add-to-list 'treesit-language-source-alist grammar)
           ;; Only install `grammar' if we don't already have it
           ;; installed. However, if you want to *update* a grammar then
@@ -447,30 +450,6 @@
 ;;(use-package envrc
 ;;  :hook (after-init . envrc-global-mode))
 
-'(with-eval-after-load 'lsp-mode
-  (lsp-register-client
-   (make-lsp-client
-    :new-connection
-    (lsp-stdio-connection
-     '("sh" "-c" "echo STARTED >> /tmp/clj-lsp.err; docker exec -i -w /root/workspace dct-dev-1 clojure-lsp listen 2>/tmp/clj-lsp.err; echo $? >> /tmp/clj-lsp.err")
-     ;;'("sh" "-c" "exec docker exec -i dct-dev-1 cat >> /tmp/lsp-stdin.log 2>&1")
-     ;;'("sh" "-c" "exec docker exec -i dct-dev-1 sh -c 'exec clojure-lsp listen 2>/tmp/inside-lsp.err'")
-     )
-    :major-modes '(clojure-mode clojurec-mode clojurescript-mode)
-    :server-id 'clojure-lsp-docker
-    :priority -1
-    :uri-handlers (lsp-ht ("file" #'lsp--uri-to-path))
-    :path->uri-fn
-    (lambda (path)
-      (concat "file://"
-              (replace-regexp-in-string
-               "^/Users/kmkoskin/work/proj-toyota/drawing-comparison-tool" "/root/workspace" path)))
-    :uri->path-fn
-    (lambda (uri)
-      (replace-regexp-in-string
-       "^file:///root/workspace" "/Users/kmkoskin/work/proj-toyota/drawing-comparison-tool"
-       (url-unhex-string uri))))))
-
 ;; (defvar bootstrap-version)
 ;; (let ((bootstrap-file
 ;;        (expand-file-name
@@ -492,9 +471,23 @@
 ;;   :straight (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold"))
 
 (use-package treesit-fold
-  :load-path "/Users/kmkoskin/.emacs.d/treesit-fold")
+  :load-path "~/.emacs.d/treesit-fold"
+  :bind
+  (:map treesit-fold-mode-map
+        ("C-c z <tab>" . treesit-fold-toggle)
+        ("C-c z c"   . treesit-fold-close)
+        ("C-c z o"   . treesit-fold-open)
+        ("C-c z C"   . treesit-fold-close-all)
+        ("C-c z O"   . treesit-fold-open-recursively)
+        ("C-c z R"   . treesit-fold-open-all)))
+
+(global-set-key (kbd "C-c z TAB") 'treesit-fold-toggle)
 
 (use-package eca
   :vc (:url "https://github.com/editor-code-assistant/eca-emacs" :rev :newest))
 
 (add-to-list 'lsp-disabled-clients 'semgrep-ls)
+
+(use-package zig-ts-mode
+  :vc (:url "https://codeberg.org/meow_king/zig-ts-mode"
+            :rev :newest))
