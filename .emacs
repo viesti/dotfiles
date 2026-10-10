@@ -1,16 +1,11 @@
 ;;; -*- lexical-binding: t -*-
 (setq native-comp-driver-options '("-mmacosx-version-min=27.0"))
 
-(package-initialize)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 
-(eval-when-compile
-  (require 'use-package))
-
-;;; -*- lexical-binding: t -*-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -53,9 +48,8 @@
      "[/\\\\]\\.tox\\'" "[/\\\\]dist\\'" "[/\\\\]dist-newstyle\\'" "[/\\\\]\\.stack-work\\'" "[/\\\\]\\.bloop\\'"
      "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.deps\\'"
      "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'"
-     "[/\\\\]target\\'" "[/\\\\]\\.clj-kondo\\'" "[/\\\\]\\.shadow-cljs\\'" "[/\\\\]\\.npm-cache\\'"
-     "[/\\\\]\\.cljs_node_repl\\'" "[/\\\\]\\.terraform\\'" "[/\\\\]\\.venv\\'" "[/\\\\]app\\'" "[/\\\\]ios\\'"
-     "[/\\\\]target\\'"))
+     "[/\\\\]\\.clj-kondo\\'" "[/\\\\]\\.shadow-cljs\\'" "[/\\\\]\\.npm-cache\\'"
+     "[/\\\\]\\.cljs_node_repl\\'" "[/\\\\]\\.terraform\\'" "[/\\\\]\\.venv\\'" "[/\\\\]app\\'" "[/\\\\]ios\\'"))
  '(lsp-headerline-breadcrumb-enable nil)
  '(lsp-lens-enable t)
  '(lsp-pylsp-server-command '("basedpyright-langserver" "--stdio"))
@@ -67,12 +61,11 @@
  '(ns-right-alternate-modifier 'meta)
  '(ns-right-command-modifier 'left)
  '(package-selected-packages
-   '(0blayout amx anakondo ansible auctex browse-at-remote cider clay clojure-mode clojure-ts-mode colorful-mode
-              company-terraform ct deadgrep dockerfile-mode dumb-jump eca envrc exec-path-from-shell expand-region
-              find-file-in-repository flx-ido flycheck-tip flymake-hadolint git-gutter-fringe grip-mode
-              highlight-parentheses highlight-symbol ido-completing-read+ iedit jinja2-mode lsp-mode lsp-ui magit
-              multiple-cursors paredit rainbow-delimiters sqlformat swift-mode terraform-mode treesit-fold uniline wgrep
-              wgrep-deadgrep yaml-mode))
+   '(0blayout amx ansible auctex browse-at-remote cider clay clojure-mode clojure-ts-mode colorful-mode company-terraform
+              ct deadgrep dockerfile-mode dumb-jump eca envrc exec-path-from-shell expand-region find-file-in-repository
+              flx-ido flycheck-tip flymake-hadolint git-gutter-fringe grip-mode highlight-parentheses highlight-symbol
+              ido-completing-read+ iedit jinja2-mode lsp-mode lsp-ui magit multiple-cursors paredit rainbow-delimiters
+              sqlformat swift-mode terraform-mode treesit-fold uniline wgrep wgrep-deadgrep yaml-mode))
  '(ring-bell-function 'ignore)
  '(safe-local-variable-directories '("/Users/kmkoskin/work/proj-endor/backend/"))
  '(safe-local-variable-values
@@ -96,7 +89,6 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (savehist-mode t)
-(pending-delete-mode t)
 (delete-selection-mode 1)
 (server-mode 1)
 (add-hook 'after-save-hook
@@ -118,10 +110,7 @@
 ;; System configuration
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
-  (exec-path-from-shell-copy-envs '("JAVA_HOME" "LANG" "LC_ALL"))
-  (set-frame-font "-*-Menlo-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1" nil t))
-(when window-system
-  (load-theme 'deeper-blue t))
+  (exec-path-from-shell-copy-envs '("JAVA_HOME" "LANG" "LC_ALL")))
 
 (use-package highlight-symbol
   :config
@@ -178,7 +167,6 @@
 ;;(setq flx-ido-use-faces nil)
 
 (use-package paredit
-  :init (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
   :config
   (add-hook 'lisp-mode-hook #'enable-paredit-mode)
   (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
@@ -186,7 +174,7 @@
   ("C-s-<right>" . paredit-forward)
   ("C-s-<left>" . paredit-backward)
   ("C-s-<up>" . paredit-backward-up)
-  ("C-s-<right>" . paredit-backward-down))
+  ("C-s-<down>" . paredit-backward-down))
 
 (use-package dumb-jump)
 (use-package iedit)
@@ -208,12 +196,11 @@
 (add-hook 'terraform-mode-hook #'lsp)
 
 (use-package shell
-  :config (add-hook 'shell-mode (lambda () (setq show-trailing-whitespace nil))))
+  :config (add-hook 'shell-mode-hook (lambda () (setq show-trailing-whitespace nil))))
 
 ;; Clojure
 
 (use-package clojure-mode
-  :mode ("\\.cljc$" . clojurec-mode)
   :config
   (define-clojure-indent
    ;; compojure
@@ -356,8 +343,6 @@
   :config
   (add-hook 'cider-mode-hook #'company-mode)
   (add-hook 'cider-mode-hook #'eldoc-mode)
-  (add-hook 'cider-mode-hook 'highlight-parentheses-mode)
-  (add-hook 'cider-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'cider-repl-mode-hook #'eldoc-mode)
   (add-hook 'cider-repl-mode-hook #'company-mode)
   (add-hook 'cider-repl-mode-hook #'subword-mode)
@@ -377,13 +362,6 @@
 (with-eval-after-load 'clojure-ts-mode
   (define-key clojure-ts-mode-map (kbd "C-'") #'reloaded-reset))
 
-(use-package anakondo
-  :ensure t
-  :commands anakondo-minor-mode
-  :config
-  (add-hook 'clojurescript-mode-hook #'anakondo-minor-mode)
-  (add-hook 'clojure-ts-clojurescript-mode-hook #'anakondo-minor-mode))
-
 (use-package lsp-mode
   :ensure t
   :hook ((clojure-mode . lsp)
@@ -391,10 +369,7 @@
          (clojurescript-mode . lsp)
          (clojure-ts-mode . lsp))
   :config
-  ;; add paths to your local installation of project mgmt tools, like lein
-  (setenv "PATH" (concat
-                  "/usr/local/bin" path-separator
-                  (getenv "PATH")))
+  (add-to-list 'lsp-disabled-clients 'semgrep-ls)
   (dolist (m '(clojure-mode
                clojurec-mode
                clojurescript-mode
@@ -403,10 +378,10 @@
                clojure-ts-clojurec-mode
                clojure-ts-clojurescript-mode))
     (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
-  (eval-after-load 'lsp-ui-mode
-    '(progn
-       (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-       (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)))
+  (with-eval-after-load 'lsp-ui
+    (progn
+      (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+      (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)))
   (global-set-key (kbd "M-+") 'lsp-ui-peek-find-references))
 
 ;; (setq gptel-model 'claude-sonnet-4-20250514
@@ -550,7 +525,6 @@
 ;;   :straight (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold"))
 
 (use-package treesit-fold
-  :load-path "~/.emacs.d/treesit-fold"
   :hook (clojure-ts-mode . treesit-fold-mode)
   :config
   ;; treesit-fold matches major-mode exactly, so derived modes need their own entries
@@ -568,8 +542,6 @@
 
 (use-package eca
   :vc (:url "https://github.com/editor-code-assistant/eca-emacs" :rev :newest))
-
-(add-to-list 'lsp-disabled-clients 'semgrep-ls)
 
 (use-package zig-ts-mode
   :vc (:url "https://codeberg.org/meow_king/zig-ts-mode"
