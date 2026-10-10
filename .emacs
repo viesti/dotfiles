@@ -276,7 +276,78 @@
   (dolist (mode '(enable-paredit-mode
                   highlight-parentheses-mode
                   rainbow-delimiters-mode))
-    (add-hook 'clojure-mode-hook mode)
+    (add-hook 'clojure-mode-hook mode)))
+
+(use-package clojure-ts-mode
+  :ensure t
+  :init
+  (dolist (m '((clojure-mode . clojure-ts-mode)
+               (clojurescript-mode . clojure-ts-clojurescript-mode)
+               (clojurec-mode . clojure-ts-clojurec-mode)))
+    (add-to-list 'major-mode-remap-alist m))
+  :custom
+  (clojure-ts-semantic-indent-rules
+   '(;; compojure
+     ("defroutes" . ((:inner 0)))
+     ("GET" . ((:block 2)))
+     ("POST" . ((:block 2)))
+     ("PUT" . ((:block 2)))
+     ("DELETE" . ((:block 2)))
+     ("HEAD" . ((:block 2)))
+     ("ANY" . ((:block 2)))
+     ("context" . ((:block 2)))
+     ;; compojure-api
+     ("GET*" . ((:block 2)))
+     ("POST*" . ((:block 2)))
+     ;; midje
+     ("tabular" . ((:inner 0)))
+     ;; jayq
+     ("let-ajax" . ((:inner 0)))
+     ;; om
+     ("render-state" . ((:inner 0)))
+     ("init-state" . ((:inner 0)))
+     ("will-mount" . ((:inner 0)))
+     ("did-mount" . ((:inner 0)))
+     ("should-update" . ((:inner 0)))
+     ("will-receive-props" . ((:inner 0)))
+     ("will-update" . ((:inner 0)))
+     ("did-update" . ((:inner 0)))
+     ("render" . ((:inner 0)))
+     ("display-name" . ((:inner 0)))
+     ("will-unmount" . ((:inner 0)))
+     ;; sablono
+     ("html" . ((:inner 0)))
+     ;; cljs.test
+     ("async" . ((:inner 0)))
+     ;; Riemann
+     ("streams" . ((:inner 0)))
+     ("where" . ((:inner 0)))
+     ("changed-state" . ((:inner 0)))
+     ("expired" . ((:inner 0)))
+     ("rollup" . ((:inner 0)))
+     ("changed" . ((:inner 0)))
+     ("by" . ((:inner 0)))
+     ("rate" . ((:inner 0)))
+     ("with" . ((:inner 0)))
+     ("timing" . ((:inner 0)))
+     ;; mocha-latte + latte-chai
+     ("describe" . ((:inner 0)))
+     ("it" . ((:inner 0)))
+     ("before" . ((:inner 0)))
+     ("beforeEach" . ((:inner 0)))
+     ;; core.match
+     ("match" . ((:inner 0)))
+     ;; others
+     ("with-additional-middleware" . ((:inner 0)))
+     ("fn-traced" . ((:inner 0)))
+     ("rf/reg-event-fx" . ((:inner 0)))
+     ("rf/reg-event-db" . ((:inner 0)))
+     ("rf/reg-fx" . ((:inner 0)))
+     ("rf/reg-sub" . ((:inner 0)))))
+  :config
+  (dolist (mode '(enable-paredit-mode
+                  highlight-parentheses-mode
+                  rainbow-delimiters-mode))
     (add-hook 'clojure-ts-mode-hook mode)))
 
 (use-package cider
@@ -292,28 +363,32 @@
   (add-hook 'cider-repl-mode-hook #'paredit-mode)
   (add-hook 'cider-repl-mode-hook (lambda () (setq show-trailing-whitespace nil))))
 
-(eval-after-load 'cider
-  '(let ((reloaded-reset (lambda ()
-                           (interactive)
-                           (save-some-buffers)
-                           (with-current-buffer (cider-current-repl-buffer)
-                             (cider-interactive-eval
-                              "(integrant.repl/reset)")))))
-     (define-key cider-mode-map (kbd "C-'") reloaded-reset)
-     (define-key clojure-mode-map (kbd "C-'") reloaded-reset)))
+(defun reloaded-reset ()
+  (interactive)
+  (save-some-buffers)
+  (with-current-buffer (cider-current-repl-buffer)
+    (cider-interactive-eval "(integrant.repl/reset)")))
+
+(with-eval-after-load 'cider
+  (define-key cider-mode-map (kbd "C-'") #'reloaded-reset))
+(with-eval-after-load 'clojure-mode
+  (define-key clojure-mode-map (kbd "C-'") #'reloaded-reset))
+(with-eval-after-load 'clojure-ts-mode
+  (define-key clojure-ts-mode-map (kbd "C-'") #'reloaded-reset))
 
 (use-package anakondo
   :ensure t
   :commands anakondo-minor-mode
   :config
-  (add-hook 'clojurescript-mode-hook #'anakondo-minor-mode))
+  (add-hook 'clojurescript-mode-hook #'anakondo-minor-mode)
+  (add-hook 'clojure-ts-clojurescript-mode-hook #'anakondo-minor-mode))
 
 (use-package lsp-mode
   :ensure t
   :hook ((clojure-mode . lsp)
          (clojurec-mode . lsp)
          (clojurescript-mode . lsp)
-         (clojure-ts-clojurescript-mode . lsp))
+         (clojure-ts-mode . lsp))
   :config
   ;; add paths to your local installation of project mgmt tools, like lein
   (setenv "PATH" (concat
@@ -322,7 +397,10 @@
   (dolist (m '(clojure-mode
                clojurec-mode
                clojurescript-mode
-               clojurex-mode))
+               clojurex-mode
+               clojure-ts-mode
+               clojure-ts-clojurec-mode
+               clojure-ts-clojurescript-mode))
     (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
   (eval-after-load 'lsp-ui-mode
     '(progn
