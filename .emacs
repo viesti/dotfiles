@@ -48,8 +48,8 @@
      "[/\\\\]\\.tox\\'" "[/\\\\]dist\\'" "[/\\\\]dist-newstyle\\'" "[/\\\\]\\.stack-work\\'" "[/\\\\]\\.bloop\\'"
      "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.deps\\'"
      "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'"
-     "[/\\\\]\\.clj-kondo\\'" "[/\\\\]\\.shadow-cljs\\'" "[/\\\\]\\.npm-cache\\'"
-     "[/\\\\]\\.cljs_node_repl\\'" "[/\\\\]\\.terraform\\'" "[/\\\\]\\.venv\\'" "[/\\\\]app\\'" "[/\\\\]ios\\'"))
+     "[/\\\\]\\.clj-kondo\\'" "[/\\\\]\\.shadow-cljs\\'" "[/\\\\]\\.npm-cache\\'" "[/\\\\]\\.cljs_node_repl\\'"
+     "[/\\\\]\\.terraform\\'" "[/\\\\]\\.venv\\'" "[/\\\\]app\\'" "[/\\\\]ios\\'"))
  '(lsp-headerline-breadcrumb-enable nil)
  '(lsp-lens-enable t)
  '(lsp-pylsp-server-command '("basedpyright-langserver" "--stdio"))
@@ -65,7 +65,7 @@
               ct deadgrep dockerfile-mode dumb-jump eca envrc exec-path-from-shell expand-region find-file-in-repository
               flx-ido flycheck-tip flymake-hadolint git-gutter-fringe grip-mode highlight-parentheses highlight-symbol
               ido-completing-read+ iedit jinja2-mode lsp-mode lsp-ui magit multiple-cursors paredit rainbow-delimiters
-              sqlformat swift-mode terraform-mode treesit-fold uniline wgrep wgrep-deadgrep yaml-mode))
+              sqlformat swift-mode systemd terraform-mode treesit-fold uniline wgrep wgrep-deadgrep yaml-mode))
  '(ring-bell-function 'ignore)
  '(safe-local-variable-directories '("/Users/kmkoskin/work/proj-endor/backend/"))
  '(safe-local-variable-values
