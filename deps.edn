@@ -42,6 +42,8 @@
 
                          org.scicloj/clay {:mvn/version "RELEASE"}
 
+                         io.github.tonsky/clojure-plus {:mvn/version "1.8.0"}
+
                          #_#_org.clj-commons/hickory {:mvn/version "0.7.4"}
 
                          com.clojure-goes-fast/clj-async-profiler {:mvn/version "2.0.0-beta1" #_"1.6.2"}}
@@ -83,7 +85,18 @@
 
            :user/outdated {;; Note that it is `:deps`, not `:extra-deps`
                            :deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}
-                           :main-opts ["-m" "antq.core"]}}
+                           :main-opts ["-m" "antq.core"]}
+
+           :cli/repl   {:extra-deps {io.github.clojure/clojure-cli.repl-server {:mvn/version "0.2.1"}
+                                     cider/cider-nrepl {:mvn/version "0.63.1"}}
+                        :main-opts ["-m" "clojure-cli.repl.server" "repl"]}
+           :cli/serve  {:extra-deps {io.github.clojure/clojure-cli.repl-server {:mvn/version "0.2.1"}
+                                     cider/cider-nrepl {:mvn/version "0.63.1"}}
+                        :main-opts ["-m" "clojure-cli.repl.server"]}
+           :cli/attach {:replace-paths []
+                        :replace-deps {io.github.clojure/clojure-cli.repl-client {:mvn/version "0.2.1"}}
+                        :jvm-opts ["--enable-native-access=ALL-UNNAMED"]
+                        :main-opts ["-m" "clojure-cli.repl.client"]}}
 
  :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
              "clojars" {:url "https://repo.clojars.org/"}}}
