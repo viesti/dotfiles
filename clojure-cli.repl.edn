@@ -1,0 +1,16 @@
+{:prompt dev.full-width-prompt/prompt
+ :middleware [dev.timing/middleware dev.heap/middleware
+              ^:optional cider.nrepl/cider-middleware
+              ^:optional portal.nrepl/middleware]
+ :print-hook dev.hooks/pprint-values
+ :bracket-pairs true
+ :eval-form-at-cursor "C-x e"
+ :doc-at-cursor "C-x d"
+ :inspect "C-x i"
+ :history :project
+ :paredit/slurp-forward "\u001b[1;5C"
+ :paredit/barf-forward  "\u001b[1;5D"
+ :paredit/raise "C-x r"
+ :paredit/splice "C-x s"
+ :paredit/kill "C-k"
+ :paredit/wrap-list "C-x w"}
