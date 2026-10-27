@@ -4,3 +4,4 @@
 **/.clj-kondo/.cache
 **/.cider-history
 **/.venv
+**/.cljconf/org.clojure/clojure-cli.repl/history

@@ -87,14 +87,14 @@
                            :deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}
                            :main-opts ["-m" "antq.core"]}
 
-           :cli/repl   {:extra-deps {io.github.clojure/clojure-cli.repl-server {:mvn/version "0.2.1"}
+           :cli/repl   {:extra-deps {io.github.clojure/clojure-cli.repl-server {:mvn/version "0.2.2"}
                                      cider/cider-nrepl {:mvn/version "0.63.1"}}
                         :main-opts ["-m" "clojure-cli.repl.server" "repl"]}
-           :cli/serve  {:extra-deps {io.github.clojure/clojure-cli.repl-server {:mvn/version "0.2.1"}
+           :cli/serve  {:extra-deps {io.github.clojure/clojure-cli.repl-server {:mvn/version "0.2.2"}
                                      cider/cider-nrepl {:mvn/version "0.63.1"}}
                         :main-opts ["-m" "clojure-cli.repl.server"]}
            :cli/attach {:replace-paths []
-                        :replace-deps {io.github.clojure/clojure-cli.repl-client {:mvn/version "0.2.1"}}
+                        :replace-deps {io.github.clojure/clojure-cli.repl-client {:mvn/version "0.2.2"}}
                         :jvm-opts ["--enable-native-access=ALL-UNNAMED"]
                         :main-opts ["-m" "clojure-cli.repl.client"]}}
 
